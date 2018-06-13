@@ -158,3 +158,4 @@ def setup(username, dest_dir, password):
 
 if __name__ == '__main__':
     setup("test", "/", "1234")
+

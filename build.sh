@@ -227,8 +227,8 @@ rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/features.py
 cp ${script_path}/Cnchi/features.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/desktop_info.py
 cp ${script_path}/Cnchi/desktop_info.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
-rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
-cp ${script_path}/Cnchi/encfs.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
+#cp ${script_path}/Cnchi/encfs.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/installation/boot/grub2.py
 cp ${script_path}/Cnchi/grub2.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/installation/boot/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/scripts/10_antergos
@@ -237,20 +237,20 @@ rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/installation/boot/systemd_bo
 cp ${script_path}/Cnchi/systemd_boot.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/installation/boot/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/scripts/postinstall.sh
 cp ${script_path}/Cnchi/postinstall.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/scripts/
-rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/info.py
 cp ${script_path}/Cnchi/info.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
-cp ${script_path}/Cnchi/main_window.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
+#cp ${script_path}/Cnchi/main_window.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/show_message.py
 cp ${script_path}/Cnchi/show_message.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/slides.py
 cp ${script_path}/Cnchi/slides.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
-rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
-cp ${script_path}/Cnchi/timezone.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
+#cp ${script_path}/Cnchi/timezone.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/welcome.py
 cp ${script_path}/Cnchi/welcome.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
-rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
-cp ${script_path}/Cnchi/desktop.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
+#cp ${script_path}/Cnchi/desktop.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/download/metalink.py
 cp ${script_path}/Cnchi/metalink.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/download/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pacman/pac.py
@@ -316,6 +316,11 @@ sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pa
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/user_info.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/wireless.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/zfs.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
+sed -i "s/gnome/deepin/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
+sed -i "s/antergos/reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
 echo "DONE"
 
 }
