@@ -268,6 +268,8 @@ cp ${script_path}/Cnchi/3.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/
 cp ${script_path}/Cnchi/sddm.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 rm ${work_dir}/${arch}/airootfs/usr/share/pixmaps/cnchi.png
 cp ${script_path}/airootfs/usr/share/applications/cnchi.png ${work_dir}/${arch}/airootfs/usr/share/pixmaps/
+rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
+cp ${script_path}/Cnchi/antergos-icon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp ${script_path}/Cnchi/flatpak.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/pkcon.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/pkcon2.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
@@ -297,6 +299,25 @@ cp ${script_path}/Cnchi/reborn-mirrorlist ${work_dir}/${arch}/airootfs/etc/pacma
 cp ${script_path}/Cnchi/deepin-fix.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/deepin-fix.service ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 echo "DONE"
+echo
+echo "Replacing Antergos mentions with Reborn"
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/advanced.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/alongside.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/ask.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/automatic.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/check.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/gtkbasebox.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/keymap.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/language.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/location.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/slides.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/summary.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/user_info.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/wireless.py
+sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/zfs.py
+echo "DONE"
+
 }
 # Prepare kernel/initramfs ${install_dir}/boot/
 make_boot() {
