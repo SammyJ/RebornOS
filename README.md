@@ -34,7 +34,7 @@ sudo pacman -S arch-install-scripts cpio dosfstools libisoburn mkinitcpio-nfs-ut
 ```
 2. Clone the repository recursively:
 ```
-git clone https://github.com/RebornOS/RebornISO.git --recursive
+git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
 ```
 3. Fix file permissions in order to successfully build the ISO:
 ```
