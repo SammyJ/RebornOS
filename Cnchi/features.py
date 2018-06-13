@@ -1,10 +1,9 @@
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 #  features.py
 #
-#  Copyright © 2013-2017 Antergos
+#  Copyright © 2013-2018 Antergos
 #
 #  This file is part of Cnchi.
 #
@@ -29,22 +28,25 @@
 
 
 """ Features screen """
+import subprocess
+import logging
+
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
-import subprocess
-import logging
 import desktop_info
 import features_info
 
 import misc.extra as misc
 
-from gtkbasebox import GtkBaseBox
+from pages.gtkbasebox import GtkBaseBox
 
 
 class Graphics(object):
+    """ Gets graphic device info using the hardware module """
     def nvidia(self):
+        """ Returns true if an nVidia card is detected """
         from hardware.modules.nvidia import Nvidia
         if Nvidia().detect():
             return True
@@ -57,20 +59,24 @@ class Graphics(object):
         return False
 
     def amd(self):
+        """ Returns true if an AMD card is detected """
         from hardware.modules.catalyst import Catalyst
         return Catalyst().detect()
 
     def i915(self):
+        """ Returns if an Intel card is detected """
         from hardware.modules.i915 import Intel915
         return Intel915().detect()
 
     def bumblebee(self):
+        """ Returns true if an nVidia and an Intel card are detected """
         return self.nvidia() and self.i915()
 
 
 class Features(GtkBaseBox):
     """ Features screen class """
 
+    COL_ICON = 0
     COL_TITLE = 1
     COL_DESCRIPTION = 2
     COL_SWITCH = 3
@@ -84,6 +90,10 @@ class Features(GtkBaseBox):
         self.listbox_rows = {}
 
         self.a11y = params['a11y']
+
+        self.show_advanced = False
+        self.advanced_checkbutton = self.ui.get_object("advanced_checkbutton")
+        self.advanced_checkbutton.set_active(False)
 
         # Set up list box
         self.listbox = self.ui.get_object("listbox")
@@ -102,8 +112,13 @@ class Features(GtkBaseBox):
         # Only load defaults for each DE the first time this screen is shown
         self.defaults_loaded = False
 
+    def on_show_advanced_features_toggled(self, _widget):
+        """ Display or hide advanced features """
+        self.show_advanced = self.advanced_checkbutton.get_active()
+        self.update_advanced_features()
+
     @staticmethod
-    def on_listbox_row_selected(listbox, listbox_row):
+    def on_listbox_row_selected(_listbox, listbox_row):
         """ Someone selected a different row of the listbox
             WARNING: IF LIST LAYOUT IS CHANGED THEN THIS SHOULD BE CHANGED ACCORDINGLY. """
         if listbox_row is not None:
@@ -148,7 +163,8 @@ class Features(GtkBaseBox):
         text_box.pack_start(label, False, False, 0)
         box.pack_start(text_box, False, False, 0)
 
-    def on_switch_activated(self, switch, gparam):
+    def on_switch_activated(self, switch, _gparam):
+        """ Feature has been activated or deactivated """
         for feature in self.features:
             row = self.listbox_rows[feature]
             if row[Features.COL_SWITCH] == switch:
@@ -156,6 +172,7 @@ class Features(GtkBaseBox):
                 self.settings.set("feature_" + feature, is_active)
 
     def add_feature_switch(self, feature, box):
+        """ Add a switch so the user can activate/deactivate the feature """
         object_name = "switch_" + feature
         switch = Gtk.Switch.new()
         switch.set_name(object_name)
@@ -167,6 +184,7 @@ class Features(GtkBaseBox):
         box.pack_end(switch, False, False, 0)
 
     def fill_listbox(self):
+        """ Fills listbox with all the features and switches """
         for listbox_row in self.listbox.get_children():
             listbox_row.destroy()
 
@@ -197,8 +215,23 @@ class Features(GtkBaseBox):
 
         self.listbox.show_all()
 
+    def update_advanced_features(self):
+        """ Shows or hides advanced features """
+        try:
+            if self.features:
+                for feature in self.features:
+                    row = self.listbox_rows[feature]
+                    box = row[Features.COL_ICON].get_parent()
+                    listboxrow = box.get_parent()
+                    if feature in features_info.ADVANCED and not self.show_advanced:
+                        listboxrow.hide()
+                    else:
+                        listboxrow.show()
+        except AttributeError as msg:
+            logging.debug(msg)
+
     @staticmethod
-    def listbox_sort_by_name(row1, row2, user_data):
+    def listbox_sort_by_name(row1, row2, _user_data):
         """ Sort function for listbox
             Returns : < 0 if row1 should be before row2, 0 if they are equal and > 0 otherwise
             WARNING: IF LAYOUT IS CHANGED IN fill_listbox THEN THIS SHOULD BE
@@ -236,6 +269,8 @@ class Features(GtkBaseBox):
     def translate_ui(self):
         """ Translates all ui elements """
 
+        self.advanced_checkbutton.set_label(_("Show advanced features"))
+
         desktop = self.settings.get('desktop')
         txt = desktop_info.NAMES[desktop] + " - " + _("Feature Selection")
         self.header.set_subtitle(txt)
@@ -260,8 +295,8 @@ class Features(GtkBaseBox):
                     stdin=process1.stdout,
                     stdout=subprocess.PIPE)
                 process1.stdout.close()
-                out, process_error = process2.communicate()
-                if out.decode() is not '':
+                out, _process_error = process2.communicate()
+                if out.decode():
                     row = self.listbox_rows['bluetooth']
                     row[Features.COL_SWITCH].set_active(True)
             except subprocess.CalledProcessError as err:
@@ -403,6 +438,7 @@ class Features(GtkBaseBox):
         else:
             # Load values user has chosen when this screen is shown again
             self.load_values()
+        self.update_advanced_features()
 
     def load_values(self):
         """ Get previous selected switches values """
@@ -419,8 +455,3 @@ try:
 except NameError as err:
     def _(message):
         return message
-
-if __name__ == '__main__':
-    from test_screen import _, run
-
-    run('Features')

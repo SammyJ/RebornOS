@@ -48,7 +48,6 @@ rp-pppoe
 sdparm
 sg3_utils
 smartmontools
-speedtouch
 sudo
 tcpdump
 testdisk
@@ -193,6 +192,11 @@ nvidia-settings
 
 
 
+clutter
+clutter-gtk
+clutter-gst
+python-cairo
+python-mock
 python
 pyalpm
 python-gobject
@@ -211,4 +215,3 @@ python-lxml
 python-mock
 python-requests
 upower
-cnchi

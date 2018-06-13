@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+﻿#!/usr/bin/bash
 echo "Correcting file permissions"
 chmod +x $PWD/Cnchi/postinstall.sh
 chmod +x $PWD/Cnchi/10_antergos

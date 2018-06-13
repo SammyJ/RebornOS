@@ -73,6 +73,10 @@ ICON_NAMES = {
     'wine': 'wine',
     'opera': 'opera'}
 
+# These features are considered 'advanced' so it won't be shown by default
+ADVANCED = [
+    'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers']
+
 
 # See http://docs.python.org/2/library/gettext.html "22.1.3.4. Deferred translations"
 def _(message):

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/usr/bin/bash
 
 set -e -u
 
@@ -21,6 +21,7 @@ gpg_key=
 arch=$(uname -m)
 verbose=""
 script_path=$(readlink -f ${0%/*})
+
 
 _usage ()
 {
@@ -124,13 +125,28 @@ make_cnchi() {
     CNCHI_SRC="${script_path}/Cnchi-${CNCHI_GIT_BRANCH}"
         install -d ${work_dir}/${arch}/airootfs/usr/share/{cnchi,locale}
 	install -Dm755 "${CNCHI_SRC}/bin/cnchi" "${work_dir}/${arch}/airootfs/usr/bin/cnchi"
+         echo
+         echo "COPIED STARTUP FILE OVER"
+         echo
 	install -Dm755 "${CNCHI_SRC}/cnchi.desktop" "${work_dir}/${arch}/airootfs/usr/share/applications/cnchi.desktop"
+         echo
+         echo "COPIED DESKTOP FILE OVER"
+         echo
 	install -Dm644 "${CNCHI_SRC}/data/images/antergos/antergos-icon.png" "${work_dir}/${arch}/airootfs/usr/share/pixmaps/cnchi.png"
+         echo
+         echo "COPIED CNCHI ICON OVER"
+         echo
     # TODO: This should be included in Cnchi's src code as a separate file
     # (as both files are needed to run cnchi)
     sed -r -i 's|\/usr.+ -v|pkexec /usr/share/cnchi/bin/cnchi -s bugsnag|g' "${work_dir}/${arch}/airootfs/usr/bin/cnchi"
-    for i in ${CNCHI_SRC}/cnchi ${CNCHI_SRC}/bin ${CNCHI_SRC}/data ${CNCHI_SRC}/scripts ${CNCHI_SRC}/ui; do
+    echo
+    echo "MODIFIED STARTUP COMMAND FOR CNCHI"
+    echo
+    for i in ${CNCHI_SRC}/src ${CNCHI_SRC}/bin ${CNCHI_SRC}/data ${CNCHI_SRC}/scripts ${CNCHI_SRC}/ui; do
         cp -R ${i} "${work_dir}/${arch}/airootfs/usr/share/cnchi/"
+        echo
+        echo "COPIED MAIN CNCHI'S SUBDIRECTORIES OVER TO BUILD FOLDER"
+        echo
     done
     for files in ${CNCHI_SRC}/po/*; do
         if [ -f "$files" ] && [ "$files" != 'po/cnchi.pot' ]; then
@@ -142,6 +158,13 @@ make_cnchi() {
             echo "CNCHI IS NOW BUILT"
         fi
     done
+rm -rf ${script_path}/Cnchi-${CNCHI_GIT_BRANCH}
+            echo
+            echo "############################################################"
+            echo "WRAPPED UP LOOSE ENDS - WILL BE MOVING ON NOW TO CUSTOMIZATIONS..."
+            echo "############################################################"
+            echo
+            echo
 }
 ########################################################################################
 
@@ -272,7 +295,7 @@ cp ${script_path}/images/desktop-environment-budgie.svg ${work_dir}/${arch}/airo
 cp ${script_path}/images/desktop-environment-i3.svg ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/icons/scalable/
 cp ${script_path}/Cnchi/reborn-mirrorlist ${work_dir}/${arch}/airootfs/etc/pacman.d/
 cp ${script_path}/Cnchi/deepin-fix.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/deepin-fix.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/Cnchi/deepin-fix.service ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 echo "DONE"
 }
 # Prepare kernel/initramfs ${install_dir}/boot/
@@ -408,12 +431,13 @@ done
 for arch in x86_64; do
     run_once make_boot
 done
-# Do all stuff for "iso
+# Do all stuff for iso
 run_once make_boot_extra
 run_once make_syslinux
 run_once make_isolinux
 run_once make_efi
 run_once make_efiboot
+run_once make_cnchi
 run_once make_fixes
 
 for arch in x86_64; do

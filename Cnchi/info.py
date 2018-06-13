@@ -29,7 +29,7 @@
 
 """ Set some Cnchi global constants """
 
-CNCHI_VERSION = "0.16.18"
+CNCHI_VERSION = "REBORN-0.14.426"
 CNCHI_WEBSITE = "http://www.rebornos.wordpress.com"
 CNCHI_RELEASE_STAGE = "production"
 

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+﻿#!/usr/bin/bash
 # -*- coding: utf-8 -*-
 #
 #  postinstall.sh
@@ -349,7 +349,8 @@ postinstall() {
         cp /usr/share/cnchi/update.desktop ${CN_DESTDIR}/etc/xdg/autostart/
         cp /usr/share/cnchi/updating.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/deepin-fix.sh ${CN_DESTDIR}/usr/bin/
-        cp /usr/share/cnchi/deepin-fix.desktop ${CN_DESTDIR}/etc/xdg/autostart/
+        cp /usr/share/cnchi/deepin-fix.service ${CN_DESTDIR}/etc/systemd/system/
+        chroot ${CN_DESTDIR} sudo systemctl enable deepin-fix.service
     fi
 
     if [[ gnome = "${CN_DESKTOP}" ]]; then
