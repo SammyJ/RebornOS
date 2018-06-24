@@ -124,9 +124,10 @@ ttf-ubuntu-font-family
 btrfs-progs
 dosfstools
 f2fs-tools
-linux
-linux-headers
-linux-api-headers
+Reborn-OS/linux
+Reborn-OS/linux-headers
+Reborn-OS/linux-api-headers
+Reborn-OS/linux-firmware
 lvm2
 mdadm
 mtools
@@ -192,6 +193,7 @@ nvidia-settings
 
 
 
+Reborn-OS/libinput
 clutter
 clutter-gtk
 clutter-gst

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/bash
+#!/usr/bin/bash
 # -*- coding: utf-8 -*-
 #
 #  postinstall.sh
@@ -25,7 +25,7 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with Cnchi; If not, see <http://www.gnu.org/licenses/>.
-
+#
 # Set xorg config files
 set_xorg_touchpad() {
     cp /usr/share/cnchi/scripts/postinstall/50-synaptics.conf ${CN_DESTDIR}/etc/X11/xorg.conf.d/50-synaptics.conf
@@ -571,3 +571,4 @@ CN_KEYBOARD_VARIANT=$7
 
 { postinstall; } >> /tmp/postinstall.log 2>&1
 rm /tmp/.postinstall.lock
+

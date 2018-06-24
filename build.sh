@@ -1,4 +1,4 @@
-﻿#!/usr/bin/bash
+#!/usr/bin/bash
 
 set -e -u
 
@@ -8,6 +8,14 @@ if [ -f config ]; then
 else
     # No config file!
     exit 1
+fi
+
+if [ -d build ]; then
+     echo "Removing build directory for you. Please be patient..."
+     rm -rf ${script_path}/build
+    echo "######################################################"
+    echo "######################DONE###########################"
+    echo "######################################################"
 fi
 
 iso_name=Reborn-OS
@@ -209,10 +217,13 @@ echo "DONE"
 echo "Copying pacman-init.service"
 cp ${script_path}/pacman-init.service ${work_dir}/${arch}/airootfs/etc/systemd/system/
 echo "DONE"
-#Replace pacman.conf with my own
-echo "Replacing pacman.conf with my own"
+#Replace pacman.conf with Reborn's
+echo "Replacing pacman.conf with Reborn's"
 rm ${work_dir}/${arch}/airootfs/etc/pacman.conf
-cp ${script_path}/pacman.conf ${work_dir}/${arch}/airootfs/etc/
+cp ${script_path}/pacman2.conf ${work_dir}/${arch}/airootfs/
+mv ${work_dir}/${arch}/airootfs/pacman2.conf ${work_dir}/${arch}/airootfs/etc/pacman.conf
+cp ${work_dir}/${arch}/airootfs/etc/pacman.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/pacman.conf ${work_dir}/${arch}/airootfs/tmp/
 echo "DONE"
 #Editting Cnchi
 echo "Moving Cnchi files over..."
@@ -274,7 +285,7 @@ cp ${script_path}/Cnchi/flatpak.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/pkcon.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/pkcon2.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/flatpak.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/pacman.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+#cp ${script_path}/Cnchi/pacman2.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/update.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/images/pantheon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/desktops/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/desktops/deepin.png
@@ -320,7 +331,6 @@ sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pa
 sed -i "s/gnome/deepin/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
-sed -i "s/antergos/reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
 echo "DONE"
 
 }

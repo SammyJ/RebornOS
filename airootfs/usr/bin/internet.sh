@@ -1,4 +1,9 @@
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout '0' && gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout '0'
+systemd-detect-virt
+if [ "$?" != oracle ]; then
+sudo rm /etc/pacman.conf
+sudo cp /tmp/pacman.conf /etc/
+fi
 sudo pacman -Scc --noconfirm
 paccache -ruk0 
 sudo paccache -r --keep 0
