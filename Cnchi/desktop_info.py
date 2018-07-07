@@ -73,11 +73,11 @@ LIBS = {
     'qt': ["kde", "lxqt"]
 }
 
-ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "graphic_drivers", "lamp", "lts", "office", "power", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
+ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "mycroft", "graphic_drivers", "lamp", "lts", "office", "power", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
 
 # Not all desktops have all features
 EXCLUDED_FEATURES = {
-    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "office", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "gtk-play", "qt-play", "power", "spotify", "wallpapers"],
+    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "office", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "mycroft", "gtk-play", "qt-play", "power", "spotify", "wallpapers"],
     'apricity': ["lamp", "visual", "nautilus", "qt-play"],
     'cinnamon': ["lamp", "visual", "nemo", "qt-play"],
     'deepin': ["lamp", "visual", "qt-play"],

@@ -220,10 +220,10 @@ echo "DONE"
 #Replace pacman.conf with Reborn's
 echo "Replacing pacman.conf with Reborn's"
 rm ${work_dir}/${arch}/airootfs/etc/pacman.conf
-cp ${script_path}/pacman2.conf ${work_dir}/${arch}/airootfs/
-mv ${work_dir}/${arch}/airootfs/pacman2.conf ${work_dir}/${arch}/airootfs/etc/pacman.conf
-cp ${work_dir}/${arch}/airootfs/etc/pacman.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/pacman.conf ${work_dir}/${arch}/airootfs/tmp/
+cp ${script_path}/Cnchi/pacman.conf ${work_dir}/${arch}/airootfs/etc/
+cp ${script_path}/Cnchi/pacman.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/Cnchi/pacman2.conf ${work_dir}/${arch}/airootfs/
+mv ${work_dir}/${arch}/airootfs/pacman2.conf ${work_dir}/${arch}/airootfs/tmp/pacman.conf
 echo "DONE"
 #Editting Cnchi
 echo "Moving Cnchi files over..."

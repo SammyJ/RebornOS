@@ -55,6 +55,7 @@ ICON_NAMES = {
     'qt-play': 'applications-games',
     'maintenance': 'baobab',
     'movie': 'artemanufrij.screencast',
+    'mycroft': 'deepin-voice-recorder',
     'graphic_drivers': 'gnome-system',
     'lamp': 'applications-internet',
     'lts': 'applications-accessories',
@@ -74,8 +75,7 @@ ICON_NAMES = {
     'opera': 'opera'}
 
 # These features are considered 'advanced' so it won't be shown by default
-ADVANCED = [
-    'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers']
+ADVANCED = [ 'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers' ]
 
 
 # See http://docs.python.org/2/library/gettext.html "22.1.3.4. Deferred translations"
@@ -104,6 +104,7 @@ TITLES = {
     'hardinfo': _("Hardware Analysis"),
     'maintenance': _("Applications to Perform System Maintenance"),
     'movie': _("Common Video Editing Programs for Linux"),
+    'mycroft': _("Mycroft"),
     'graphics': _("Common Photo editing Programs for Linux"),
     'graphic_drivers': _("Graphic drivers (Proprietary)"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP"),
@@ -142,6 +143,7 @@ DESCRIPTIONS = {
     'qt-play': _("Popular games for Linux, all created for use on your Desktop Environment"),
     'maintenance': _("Common Applications to Perform System Maintenance On Linux"),
     'movie': _("Common video editing programs for Linux"),
+    'mycroft': _("An Open Source alternative to AIs such as Amazon's Alexa and Apple's Siri"),
     'graphics': _("Common Photo editing Programs for Linux"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP installation and setup."),
     'cups': _("Installation of printer drivers and management tools."),
@@ -244,6 +246,9 @@ TOOLTIPS = {
                      "programs in a file so that you can reinstall them later."),
     'movie': _("Common video editing programs for Linux, such as Open Shot, KdenLive,\n"
                "Pitivi, Cinelerra, and Avidemux"),
+    'mycroft': _("Open Source alternative to AIs such as Amazon's Alexa and Apple's Siri. Just like other AIs,\n"
+                        "Mycroft is voice activated and can perform numerous tasks. However, unlike other IAs,\n"
+                        "Mycroft does NOT collect any information on its users - keeping your privacy intact"),
     'graphics': _("Common Photo editing Programs for Linux, such as Gimp, GtThumb,\n"
                   "Rapid Photo Downloader, Rawtherapee, and DarkTable"),
     'graphic_drivers': _("Installs AMD or Nvidia proprietary graphics driver instead\n"

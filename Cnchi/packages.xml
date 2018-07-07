@@ -326,6 +326,9 @@
             <pkgname>cinelerra-cv</pkgname>
             <pkgname>avidemux-cli</pkgname>
         </feature>
+        <feature name="mycroft">
+            <pkgname>mycroft-reborn</pkgname>
+        </feature>
         <feature name="skype">
             <pkgname>skypeforlinux-stable-bin</pkgname>
         </feature>
