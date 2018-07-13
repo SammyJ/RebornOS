@@ -1,8 +1,10 @@
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout '0' && gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout '0'
 systemd-detect-virt
 if [ "$?" != oracle ]; then
-yes | sudo cp -f /tmp/pacman.conf /etc/
+echo "Running in Virtualbox"
 fi
+#sed '54 c\
+#> http://experiencing-reborn.weebly.com/welcome.html' /usr/share/cnchi/src/pages/slides.py
 sudo pacman -Scc --noconfirm
 paccache -ruk0 
 sudo paccache -r --keep 0
