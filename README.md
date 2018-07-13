@@ -36,12 +36,6 @@ sudo pacman -S arch-install-scripts cpio dosfstools libisoburn mkinitcpio-nfs-ut
 ```
 git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
 ```
-3. Fix file permissions in order to successfully build the ISO:
-```
-chmod +x /home/$USER/Reborn-OS/run.sh
-cd /home/$USER/Reborn-OS/
-sudo /home/$USER/Reborn-OS/run.sh
-```
 4. Create an `out` folder by running:
 ```
 sudo mkdir out
