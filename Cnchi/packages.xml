@@ -20,7 +20,7 @@
                 <pkgname lib="gtk">dconf-editor</pkgname>
                 <pkgname lang="de">hunspell-de</pkgname> <!-- German hunspell dictionaries -->
                 <pkgname lang="en">hunspell-en</pkgname> <!-- English hunspell dictionaries -->
-                <pkgname lang="es">hunspell-es</pkgname> <!-- Spanish hunspell dictionaries -->
+                <pkgname lang="es">hunspell-es_es</pkgname> <!-- Spanish hunspell dictionaries -->
                 <pkgname lang="fr">hunspell-fr</pkgname> <!-- French (modern) hunspell dictionaries -->
                 <pkgname lang="he">hunspell-he</pkgname> <!-- Hebrew hunspell dictionary -->
                 <pkgname lang="it">hunspell-it</pkgname> <!-- Italian dictionary for Hunspell -->
