@@ -334,7 +334,7 @@ sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/ma
 echo "DONE"
 echo
 echo "Fixing /usr/bin/reflector-antergos file for use in the ISO"
-sudo reflector-antegos --save
+sudo reflector-antergos --save
 rm -f ${work_dir}/${arch}/airootfs/usr/bin/reflector-antergos
 cp ${script_path}/scripts/reflector-antergos ${work_dir}/${arch}/airootfs/usr/bin/
 cp ${script_path}/scripts/antergos-mirrorlist-20180708-1-any.pkg.tar.xz ${work_dir}/${arch}/airootfs/usr/bin/
