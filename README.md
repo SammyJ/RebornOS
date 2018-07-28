@@ -20,6 +20,7 @@
 - archiso
 - lynx
 - wget
+-reflector-antergos
 
 ### Free space
 
@@ -30,7 +31,7 @@ Please check that you have 5GB (or more) of free harddisk space in your root par
 
 1. Install dependencies:
 ```
-sudo pacman -S arch-install-scripts cpio dosfstools libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso --needed
+sudo pacman -S arch-install-scripts cpio dosfstools libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
 ```
 2. Clone the repository recursively:
 ```
@@ -50,8 +51,8 @@ To rebuild the ISO, simply remove the `build` folder in addition to emptying the
 
 ### Upload Reborn OS to Sourceforge (note for Reborn OS team)
 
-- Run `rsync -v --progress -e ssh /home/$USER/reborn/out/Reborn-OS-2017.12.13-x86_64.iso keeganmm@frs.sourceforge.net:/home/frs/project/antergos-deepin/
+- Run `rsync -v --progress -e ssh /home/$USER/reborn/out/Reborn-OS-2017.12.13-x86_64.iso {SOURCEFORGE_USER_NAME}@frs.sourceforge.net:/home/frs/project/antergos-deepin/
 `
 
-### Upload Reborn OS to Github (note for Reborn OS team)
+### Upload Reborn OS code to Gitlab (note for Reborn OS team)
 - Follow the instructions found here: https://help.github.com/articles/adding-a-file-to-a-repository-using-the-command-line/
