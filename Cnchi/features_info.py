@@ -64,6 +64,7 @@ ICON_NAMES = {
     'nixnote': 'evernote',
     'office': 'libreoffice-writer',
     'power': 'battery-full-charged',
+    'redshift': 'redshift',
     'sshd': 'gnome-mime-x-directory-smb-share',
     'spotify': 'spotify-client',
 #    'skype': 'skype',
@@ -111,6 +112,7 @@ TITLES = {
     'lts': _("Kernel (LTS version)"),
     'office': _("LibreOffice"),
     'power': _("Power Saving"),
+    'redshift': _("Redshift"),
     'sshd': _("Windows sharing SMB"),
 #    'skype': _("Skype"),
     'spotify': _("Spotify"),
@@ -153,6 +155,7 @@ DESCRIPTIONS = {
     'firewall': _("Control the incoming and outgoing network traffic."),
     'lts': _("Long term support (LTS) Linux kernel and modules."),
     'power': _("Power Saving Tools Geared Specifically for Laptops"),
+    'redshift': _("Color Temperature Adjuster Based on Local Time"),
     'sshd': _("Provides client access to shared files and printers."),
  #   'skype': _("A User Friendly Video Chat Tool Made By Microsoft"),
     'spotify': _("A widely popular music, podcast, and video streaming service"),
@@ -273,6 +276,9 @@ TOOLTIPS = {
                "performance in the background without interfering with your daily use at all,\n"
                "and Thermald will conveniently ensure that your fans and CPU both remain\n"
                "at acceptable levels"),
+    'redshift': _("Redshift is an application that adjusts the computer display's color temperature\n"
+                          "based upon the time of day - with absolutely no manual intervention needed after\n"
+                          "the initial setup."),
     'sshd': _("Most usage of SMB involves computers running Microsoft Windows.\n"
              "Use this option to be able to browse SMB shares from your computer."),
 #    'skype': _("Skype is a user-friendly video chat tool made by Microsoft for all ages.\n"

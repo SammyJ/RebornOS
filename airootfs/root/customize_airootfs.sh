@@ -56,7 +56,7 @@ systemctl -fq enable pacman-init.service
 	#Enable Repository Configuration
 	systemctl -fq enable internet.service
 
-dkms autoinstall
+# dkms autoinstall
 
 # Enable lightdm by disabling root login
         echo "Adding autologin group"
@@ -87,4 +87,3 @@ dkms autoinstall
 # Fix sudoers
         chown -R root:root /etc/
         chmod 660 /etc/sudoers
-

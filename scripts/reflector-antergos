@@ -1,0 +1,589 @@
+#!/bin/bash
+#
+# Generates to stdout a ranked Antergos mirror list that can be directly used as
+# file /etc/pacman.d/antergos-mirrorlist.
+#
+# For optimizing performance
+# - while searching the mirrors with this tool
+# AND
+# - while updating your system using the ranked mirrors
+# you may exclude mirror countries (option --exclude-countries)
+# or exclude groups of countries (--exclude-countrygroups), or individual mirrors (--exclude-mirrors).
+#
+# You can specify which protocols (https, http) are used (option --protocols).
+#
+# For more details, see below.
+#
+# Installation:
+# - Copy this script into a file (e.g. /usr/bin/reflector-antergos or /usr/local/bin/reflector-antergos)
+# and make it executable (e.g. chmod +x /usr/bin/reflector-antergos).
+#
+# NOTE1: for option --exclude-countries, in addition to country names you can
+# give "reserved" word 'Automated'. The Automated excludes all
+# automated mirrors (usually one or two).
+# Single mirrors (URLs) can be excluded with option --exclude-mirrors.
+#
+# NOTE2: it is possible to manually edit and re-order mirrors
+# in /etc/pacman.d/antergos-mirrorlist.
+#
+# Usage example:
+# reflector-antergos --exclude-countrygroup=Asia2,Europe > ~/antergos-mirrorlist
+# sudo mv -f /etc/pacman.d/antergos-mirrorlist /etc/pacman.d/antergos-mirrorlist.bak # optional: backup old file
+# sudo mv -f ~/antergos-mirrorlist /etc/pacman.d/antergos-mirrorlist
+#
+# TODO:
+# - Only http and https protocols are currently supported.
+#
+# Caveats:
+# - This script assumes $INPUTFILE (antergos-mirrorlist, see function GetLatestInputFile below)
+# is written using a certain format.
+# If the format changes, this script must be modified accordingly
+# (which may or may not be trivial).
+#
+
+OUTPUTFILE=/etc/pacman.d/antergos-mirrorlist
+INPUTFILE="" # the latest available antergos-mirrorlist, downloaded!
+
+EXCLUDEDCOUNTRYGROUPS=""
+EXCLUDEDCOUNTRIES=""
+EXCLUDEDMIRRORS=""
+PROTOCOLS="http" # default protocol
+INCLUDEDCOUNTRIES=""
+
+REPO=antergos
+ARCH=$(uname -m)
+
+TMPDIR="$HOME/.rankingstuff.tmp.$$"
+#TMPDIR="/tmp/.rankingstuff.tmp.$$"
+RANKEDMIRRORS="$TMPDIR/rankedmirrors"
+INSTALLER="$TMPDIR/installer.bash"
+
+REFLECTOR_ANTERGOS_CONF=/etc/reflector-antergos.conf # may contain e.g. REFERENCEURL
+if [ -f $REFLECTOR_ANTERGOS_CONF ] ; then
+source $REFLECTOR_ANTERGOS_CONF
+fi
+if [ "$REFERENCEURL" = "" ] ; then
+REFERENCEURL=http://mirrors.antergos.com/$REPO/$ARCH/main.files.tar.gz
+fi
+
+REFERENCEFILE="$TMPDIR/referencefile"
+REFERENCESTAMP=0 # timestamp
+
+FOUND_MIRRORS=0
+SAVE_TO_FILE=false # false=output to standard output, true=to /etc/pacman.d/antergos-mirrorlist
+
+HIDE_ORIGINAL_MIRRORS=yes # Controls how the original mirror list is appended after ranked mirrors.
+# yes=hides original mirrors, no=don't hide original mirrors.
+
+VERSION_STUB="$Id: reflector-antergos,v 1.34 2018/06/20 14:38:01 manuel Exp $"
+VERSION=0.$(echo "$VERSION_STUB" | awk '{print $3}')
+
+VERBOSE=1
+DEBUG=0
+
+TIME_CMD=/usr/bin/time
+WGET_CMD=/usr/bin/wget
+
+WGET_TIMEOUT=30 # seconds to wait for the mirror to respond
+
+echo2() { echo "$@" >&2 ; }
+verbose2() { test $VERBOSE -ne 0 && echo2 "$@" ; }
+verbose2more() { test $VERBOSE -eq 2 && echo2 "$@" ; }
+debug2() { test $DEBUG -eq 1 && echo2 "$@" ; }
+printf2()
+{
+local fmt="$1"
+shift
+printf "$fmt" "$@" >&2
+}
+
+_runcheck()
+{
+"$@"
+if [ $? -ne 0 ] ; then
+echo2 "ERROR: command '$*' failed."
+exit 1
+fi
+}
+
+Usage()
+{
+case $VERBOSE in
+1|2) cat <<EOF
+Overview:
+
+reflector-antergos generates (to stdout) a ranked Antergos mirror list
+that can be directly used as file /etc/pacman.d/antergos-mirrorlist.
+
+Version: $VERSION
+
+Usage: $(basename $0) [options]
+where 'options' are:
+--exclude-countries=X,Y,Z,...
+Exclude all mirrors from given countries.
+Note1: If a country name includes spaces, e.g. Czech Republic,
+convert spaces into underscores, e.g. Czech_Republic.
+Note2: The word 'Automated' excludes all mirrors from section
+'Automated Mirror Selection'.
+
+--exclude-countrygroups=X,Y,Z,...
+Exclude countries using group names: America, Asia, Asia2, Europe, Europe2
+where Asia2 and Europe2 include Russia.
+
+--exclude-mirrors=X,Y,Z,...
+Exclude mirror urls that contain any of strings X, Y or Z as substring.
+
+--include-countries=X,Y,Z,...
+The opposite of --exclude-countries.
+Note that this option cannot be used together with options to
+exclude countries.
+
+--save
+Saves the ranked mirror list to file /etc/pacman.d/antergos-mirrorlist
+and makes a backup of the previous file.
+Note that usage of this option requires root permissions.
+If this option is not used, the ranked mirror list is printed to standard output.
+
+--hide-original-mirrors=X
+As the original mirror list is appended to the ranking result,
+this option controls whether original mirrors are hidden or not.
+X=yes hides original mirrors (default).
+X=no does not hide them.
+Note that the original mirror list may contain some out-of-order mirrors.
+
+--protocols=X,Y,...
+Repo protocols in preference order (currently only https and http
+are supported).
+
+--timeout=seconds
+Max time in seconds to wait for a mirror response. Default is $WGET_TIMEOUT.
+
+--repo=X
+X defaults to 'antergos'
+
+--arch=X
+X defaults to $(uname -m)
+
+--quiet
+Don't show progress info.
+
+--verbose
+Show more details about operation
+
+--help
+-h
+This help.
+
+Example:
+$(basename $0) --exclude-countries=China,Russia,USA,Japan,Automated \\
+--exclude-mirrors=sourceforge,mirrors.tuxns,antergos-mirror-a.alpix \\
+--protocols=https,http
+
+EOF
+;;
+esac
+}
+
+
+wget_error()
+{
+# return as one word!
+case "$1" in
+0) echo "ok" ;;
+1) echo "generic_error" ;;
+2) echo "parse_error" ;;
+3) echo "file_i/o_error" ;;
+4) echo "network_failure" ;;
+5) echo "ssl_verification_failure" ;;
+6) echo "username/password_authentication_failure" ;;
+7) echo "protocol_error" ;;
+8) echo "server_issued_error" ;;
+*) echo "(unknown_error)" ;;
+esac
+}
+
+RankMirrorProtocol()
+{
+local mirrorarg="$1"
+local country="$2"
+local mirror=$(echo "$mirrorarg" | sed -e 's|\$repo|'$REPO'|' -e 's|\$arch|'$ARCH'|')
+local mirrorurl="$mirror/$(basename $REFERENCEURL)"
+local mirrorfile="$TMPDIR/mirrorfile"
+local mirrordata="$TMPDIR/mirrordata"
+local result
+local downloadtime=-1
+local status=ok
+local timestamp
+local xx
+local hide
+
+for xx in $EXCLUDEDMIRRORS
+do
+if [[ "$mirror" =~ "$xx" ]] ; then
+return
+fi
+done
+
+verbose2 " $mirrorarg"
+
+rm -f "$mirrorfile"
+
+$TIME_CMD -f %e $WGET_CMD --timeout=$WGET_TIMEOUT --tries=1 -q -O "$mirrorfile" "$mirrorurl" 2>"$mirrordata" 1>/dev/null
+result=$?
+
+if [ $result -eq 0 ] ; then
+downloadtime=$(cat "$mirrordata" | tr '.' ',')
+timestamp=$(stat -c %Y "$mirrorfile")
+
+#verbose2 "vertailu: $timestamp $REFERENCESTAMP"
+if [[ "$timestamp" < "$REFERENCESTAMP" ]] ; then
+status="outdated"
+result=1
+elif [ "$(cmp "$mirrorfile" "$REFERENCEFILE")" != "" ] ; then
+status="contents_differ"
+result=1
+fi
+else
+status=$(wget_error $result) # file download problem
+fi
+
+if [ "$status" != "ok" ] ; then
+hide="#"
+
+echo2 "status = $status"
+case "$status" in
+outdated) echo2 "timestamp = $timestamp refstamp = $REFERENCESTAMP" ;;
+*) ;;
+esac
+else
+((FOUND_MIRRORS++))
+fi
+printf "%sServer = %s ############# downloadtime: %5s status: %s %s\n" \
+"$hide" "$mirrorarg" "$downloadtime" "$status" "$country" >> "$RANKEDMIRRORS"
+
+return $result
+}
+
+RankMirror()
+{
+local mirror="$1"
+local country="$2"
+local protocol
+local m
+
+for protocol in $PROTOCOLS
+do
+m=$(echo "$mirror" | sed 's|^[a-z]*://|'$protocol'://|')
+RankMirrorProtocol "$m" "$country"
+done
+}
+
+RankCountryMirrors()
+{
+local country="$1"
+local mirror
+local mirrors
+
+if [ "$country" = "Automated" ] ; then
+mirrors=$(grep -A 5 "^# [ ]*Automated Mirror" "$INPUTFILE" | grep "^Server = " | awk '{print $3}')
+else
+local country2=$(echo $country | sed 's|_.*$||') # remove first underscore (and tail) that may have been put there
+country=$(echo $country | sed 's|_| |g') # restore the original country name!
+mirrors=$(sed -n '/# '$country2'/,/^$/ p' $INPUTFILE | sed '1d;$d' | awk '{print $3}')
+fi
+
+verbose2 "$country:"
+for mirror in $mirrors
+do
+RankMirror "$mirror" "$country"
+done
+}
+
+SortMirrors()
+{
+local protocol
+
+mv "$RANKEDMIRRORS" "$RANKEDMIRRORS".tmp
+
+for protocol in $PROTOCOLS
+do
+grep "Server = $protocol://" "$RANKEDMIRRORS".tmp | sort -g -k 6 >> "$RANKEDMIRRORS"
+done
+rm -f "$RANKEDMIRRORS".tmp
+}
+
+RemoveCommentsOnServerLines()
+{
+mv "$RANKEDMIRRORS" "$RANKEDMIRRORS".tmp
+cat "$RANKEDMIRRORS".tmp | sed 's|/\$arch[ ]*#|/\$arch\n#|' > "$RANKEDMIRRORS"
+rm -f "$RANKEDMIRRORS".tmp
+}
+
+AddHeaderToFile()
+{
+local program=$(basename $0)
+
+mv "$RANKEDMIRRORS" "$RANKEDMIRRORS".tmp
+echo "## Generated by $program (version $VERSION) at $(date)." >> "$RANKEDMIRRORS"
+echo "##" >> "$RANKEDMIRRORS"
+echo "## Options used: $COMMAND_LINE" >> "$RANKEDMIRRORS"
+echo "##" >> "$RANKEDMIRRORS"
+cat "$RANKEDMIRRORS".tmp >> "$RANKEDMIRRORS"
+if [ -f "$INPUTFILE" ] ; then
+echo "" >> "$RANKEDMIRRORS"
+echo "" >> "$RANKEDMIRRORS"
+echo "#############################################################" >> "$RANKEDMIRRORS"
+echo "############## Original antergos-mirrorlist: ################" >> "$RANKEDMIRRORS"
+echo "#############################################################" >> "$RANKEDMIRRORS"
+echo "" >> "$RANKEDMIRRORS"
+case "$HIDE_ORIGINAL_MIRRORS" in
+yes|y|Y|true|on|1)
+cat "$INPUTFILE" | sed -e 's|^#Server = |##Server = |' -e 's|^Server = |#Server = |' >> "$RANKEDMIRRORS" # original mirrors commented out
+;;
+*)
+cat "$INPUTFILE" >> "$RANKEDMIRRORS"
+;;
+esac
+fi
+rm -f "$RANKEDMIRRORS".tmp
+}
+
+ShowMirrorlist()
+{
+case "$SAVE_TO_FILE" in
+true)
+sudo mv -f "$OUTPUTFILE" "$OUTPUTFILE".bak
+sudo cp -f "$RANKEDMIRRORS" "$OUTPUTFILE"
+;;
+false)
+cat "$RANKEDMIRRORS"
+;;
+esac
+}
+
+RankAllMirrors() # this mainly controls the operation
+{
+# If a country name for allcountries includes spaces, they are turned to underscores.
+# Note that this implementation handles max 3 words in a country name.
+# If more words can exist on a country name, change the awk command on the next line.
+local allcountries=$(grep "^# [A-Z]" "$INPUTFILE" | awk '{print $2"_"$3"_"$4}' | sed 's|[_]*$||')
+local automatedmirrors=$(grep -A 5 "^# [ ]*Automated Mirror" "$INPUTFILE" | grep "^Server = " | awk '{print $3}')
+local country mirror
+
+rm -f "$RANKEDMIRRORS"
+
+if [ -n "$INCLUDEDCOUNTRIES" ] ; then
+# only the included countries are ranked
+for country in $INCLUDEDCOUNTRIES
+do
+RankCountryMirrors "$country"
+done
+else
+if [[ ! "$EXCLUDEDCOUNTRIES" =~ "Automated" ]] ; then
+allcountries+=" Automated"
+else
+printf2 "Automated Mirrors:\n <excluded>\n"
+fi
+
+for country in $allcountries
+do
+if [[ ! "$EXCLUDEDCOUNTRIES" =~ "$country" ]] ; then
+RankCountryMirrors "$country"
+else
+printf2 "$(echo $country | sed 's|_| |g'):\n <excluded>\n"
+fi
+done
+fi
+
+if [ $FOUND_MIRRORS -eq 0 ] ; then
+echo2 ""
+echo2 -n "Fail: no good mirrors currently found! "
+if [ "$EXCLUDEDCOUNTRIES" = "" ] ; then
+echo2 "Please try again later."
+else
+echo2 "Please try again later, or reduce your list of excluded countries."
+fi
+return 1
+else
+echo2 "$FOUND_MIRRORS mirrors found."
+fi
+
+SortMirrors
+AddHeaderToFile
+RemoveCommentsOnServerLines
+ShowMirrorlist
+}
+
+GetLatestInputFile()
+{
+# Download the latest available antergos-mirrorlist as a reference input file.
+
+echo2 -n "Downloading latest mirror info ... "
+_runcheck pushd "$TMPDIR" >/dev/null
+
+local filelist=fileinfo-$$.html
+_runcheck wget -q -O "$filelist" https://repo.antergos.info/antergos/x86_64/
+
+local inputfile=$(cat "$filelist" | sed 's|</a>|</a>\n|g' | grep "antergos-mirrorlist" | grep -v "xz\.sig" | sed 's|^.*>\(antergos\-mirrorlist\-[0-9\-]*\-any\.pkg\.tar\.xz\)<.*$|\1|')
+rm -f "$filelist"
+
+_runcheck wget -q https://repo.antergos.info/antergos/x86_64/"$inputfile"
+_runcheck tar xf "$inputfile"
+
+if [ -f etc/pacman.d/antergos-mirrorlist ] ; then
+mv etc/pacman.d/antergos-mirrorlist .
+rm -rf etc
+rm -f "$inputfile" .BUILDINFO .MTREE .PKGINFO
+else
+echo2 "Error: file antergos-mirrorlist not found in downloaded package '$PWD/$inputfile'!"
+exit 1
+fi
+
+_runcheck popd >/dev/null
+
+echo2 "done."
+
+INPUTFILE="$TMPDIR/antergos-mirrorlist"
+
+if [ "$(cat "$INPUTFILE")" = "" ] ; then
+echo2 "Error: your '$INPUTFILE' is empty??"
+exit 1
+fi
+}
+
+GetReferenceFiles()
+{
+# make sure we have a reference file to read!
+GetLatestInputFile
+
+$WGET_CMD -q -O "$REFERENCEFILE" $REFERENCEURL
+REFERENCESTAMP=$(stat -c %Y "$REFERENCEFILE")
+}
+
+CleanAll()
+{
+rm -rf ${TMPDIR%.*}.*
+}
+
+AddToExcludedCountries()
+{
+local america="Canada USA"
+local asia="China Japan"
+local europe="Bulgaria Czech Denmark France England Germany Greece Netherlands Portugal Spain Sweden"
+
+local xx
+for xx in $EXCLUDEDCOUNTRYGROUPS
+do
+case "$xx" in
+America) EXCLUDEDCOUNTRIES+=" $america" ;;
+Asia) EXCLUDEDCOUNTRIES+=" $asia" ;;
+Asia2) EXCLUDEDCOUNTRIES+=" $asia Russia" ;;
+Europe) EXCLUDEDCOUNTRIES+=" $europe" ;;
+Europe2) EXCLUDEDCOUNTRIES+=" $europe Russia" ;;
+*)
+echo2 "Warning: word '$xx' is not recognized as a country group."
+;;
+esac
+done
+}
+
+HandleOptions()
+{
+local arg
+local doexit=0
+
+for arg in "$@"
+do
+case "$arg" in
+--help|-h)
+CleanAll ; Usage ; doexit=1
+;;
+--quiet)
+VERBOSE=0
+;;
+--verbose)
+VERBOSE=2
+;;
+--debug)
+DEBUG=1
+;;
+--protocols=*)
+PROTOCOLS="$(echo ${arg:12} | tr ',' ' ')"
+;;
+--exclude-countries=*)
+EXCLUDEDCOUNTRIES+=" $(echo ${arg:20} | tr ',' ' ')"
+;;
+--exclude-countrygroups=*)
+EXCLUDEDCOUNTRYGROUPS="$(echo ${arg:24} | tr ',' ' ')"
+AddToExcludedCountries
+;;
+--include-countries=*)
+INCLUDEDCOUNTRIES+=" $(echo ${arg:20} | tr ',' ' ')"
+;;
+--save)
+SAVE_TO_FILE=true
+;;
+--exclude-mirrors=*)
+EXCLUDEDMIRRORS="$(echo ${arg:18} | tr ',' ' ')"
+;;
+--hide-original-mirrors=*)
+HIDE_ORIGINAL_MIRRORS="${arg:24}"
+;;
+--timeout=*)
+WGET_TIMEOUT="${arg:10}"
+;;
+--repo=*)
+REPO=$(echo ${arg:7})
+;;
+--arch=*)
+ARCH=$(echo ${arg:7})
+;;
+esac
+done
+if [ -n "$INCLUDEDCOUNTRIES" ] && [ -n "$EXCLUDEDCOUNTRIES" ] ; then
+echo2 "Sorry, options to both include and exclude countries cannot be used together."
+echo2 "Note however that it is allowed to include countries but exclude mirrors."
+doexit=1
+fi
+
+debug2 "Command line: $0 $@"
+
+verbose2more "EXCLUDEDCOUNTRYGROUPS = $EXCLUDEDCOUNTRYGROUPS"
+verbose2more "EXCLUDEDCOUNTRIES = $EXCLUDEDCOUNTRIES"
+verbose2more "EXCLUDEDMIRRORS = $EXCLUDEDMIRRORS"
+verbose2more "INCLUDEDCOUNTRIES = $INCLUDEDCOUNTRIES"
+verbose2more "PROTOCOLS = $PROTOCOLS"
+verbose2more "WGET_TIMEOUT = $WGET_TIMEOUT"
+
+test $doexit -eq 1 && exit 0
+}
+
+CheckRequirements()
+{
+# check required programs
+if [ ! -x $TIME_CMD ] ; then
+echo2 "Sorry, you need to install package 'time' first!"
+echo2 "pacman -S --needed time"
+exit 1
+fi
+if [ ! -x $WGET_CMD ] ; then
+echo2 "Sorry, you need to install package 'wget' first!"
+echo2 "pacman -S --needed wget"
+exit 1
+fi
+
+mkdir -p "$TMPDIR"
+}
+
+StartHere()
+{
+COMMAND_LINE="$*"
+
+CheckRequirements
+HandleOptions "$@"
+GetReferenceFiles
+RankAllMirrors
+CleanAll
+}
+
+StartHere "$@"

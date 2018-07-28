@@ -332,6 +332,15 @@ sed -i "s/gnome/deepin/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
 echo "DONE"
+echo
+echo "Fixing /usr/bin/reflector-antergos file for use in the ISO"
+sudo reflector-antegos --save
+rm -f ${work_dir}/${arch}/airootfs/usr/bin/reflector-antergos
+cp ${script_path}/scripts/reflector-antergos ${work_dir}/${arch}/airootfs/usr/bin/
+cp ${script_path}/scripts/antergos-mirrorlist-20180708-1-any.pkg.tar.xz ${work_dir}/${arch}/airootfs/usr/bin/
+rm -f ${work_dir}/${arch}/airootfs/etc/pacman.d/antergos-mirrorlist
+cp /etc/pacman.d/antergos-mirrorlist ${work_dir}/${arch}/airootfs/etc/pacman.d/
+echo "DONE"
 
 }
 # Prepare kernel/initramfs ${install_dir}/boot/

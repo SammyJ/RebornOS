@@ -163,7 +163,7 @@ wget
 
 iso-hotfix-utility
 b43-firmware
-broadcom-wl-dkms
+broadcom-wl
 dnsutils
 netctl
 nss-mdns
@@ -193,6 +193,7 @@ nvidia-settings
 
 
 
+reflector-antergos
 libinput
 clutter
 clutter-gtk

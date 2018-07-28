@@ -329,6 +329,10 @@
         <feature name="mycroft">
             <pkgname>mycroft-reborn</pkgname>
         </feature>
+        <feature name="redshift">
+            <pkgname>redshift</pkgname>
+            <pkgname>redshiftgui</pkgname>
+        </feature>
         <feature name="skype">
             <pkgname>skypeforlinux-stable-bin</pkgname>
         </feature>
