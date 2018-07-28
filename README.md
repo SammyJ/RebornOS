@@ -20,7 +20,7 @@
 - archiso
 - lynx
 - wget
--reflector-antergos
+ -reflector-antergos
 
 ### Free space
 
