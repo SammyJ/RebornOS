@@ -112,7 +112,6 @@
 
         <edition name="openbox" description="Openbox Window Manager">
             <packages>
-                <pkgname>antergos-openbox-setup</pkgname>
                 <pkgname nm='true' name='NetworkManager'>network-manager-applet</pkgname>
                 <pkgname>openbox-cosmic-reborn</pkgname>
                 <pkgname>lxde-gtk3</pkgname>
