@@ -107,7 +107,6 @@ TITLES = {
     'movie': _("Common Video Editing Programs for Linux"),
     'mycroft': _("Mycroft"),
     'graphics': _("Common Photo editing Programs for Linux"),
-    'graphic_drivers': _("Graphic drivers (Proprietary)"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP"),
     'lts': _("Kernel (LTS version)"),
     'office': _("LibreOffice"),
@@ -131,14 +130,13 @@ DESCRIPTIONS = {
     'broadcom': _("Enables your system to effectively use a Broadcom driver"),
     'chromium': _("Open-source web browser from Google."),
     'email': _("Installs Thunderbird as your Desktop Email Client"),
-    'dropbox': _("Free file hosting service for Linux"),
+    'dropbox': _("Free file hosting service for Linux (installed from external source to avoid copywrite issues)"),
     'firefox': _("A popular open-source graphical web browser from Mozilla."),
     'opera':_("Opera is an innovative, minimalistic web browser from Opera.Inc"),
     'vivaldi': _("Vivaldi is a free, fast web browser designed for power-users."),
     'flash': _("Freeware software normally used for multimedia."),
     'fonts': _("TrueType fonts from the Google Fonts project."),
     'firewire': _("Linux Support For Firewire Devices"),
-    'graphic_drivers': _("Installs AMD or Nvidia proprietary graphic driver."),
     'games': _("Installs Steam and Playonlinux for gaming enthusiasts."),
     'gtk-play': _("Popular games for Linux, all created for use on your Desktop Environment"),
     'hardinfo': _("Easy application for extensive hardware analysis"),
@@ -189,7 +187,8 @@ TOOLTIPS = {
                "for Linux around. It is is a free, open source, cross-platform email, news,\n"
                "RSS, and chat client developed by the Mozilla Foundation for you."),
     'dropbox': _("Dropbox is a free file hosting and synchronization service for Linux\n"
-                 "that integrates fully into your file manager - all for free"),
+                 "that integrates fully into your file manager - all for free (installed from \n"
+                 "external source to avoid copywrite issues)"),
     'firefox': _("Mozilla Firefox (known simply as Firefox) is a free and\n"
                  "open-source web browser developed for Windows, OS X, and Linux,\n"
                  "with a mobile version for Android, by the Mozilla Foundation and\n"
@@ -254,9 +253,6 @@ TOOLTIPS = {
                         "Mycroft does NOT collect any information on its users - keeping your privacy intact"),
     'graphics': _("Common Photo editing Programs for Linux, such as Gimp, GtThumb,\n"
                   "Rapid Photo Downloader, Rawtherapee, and DarkTable"),
-    'graphic_drivers': _("Installs AMD or Nvidia proprietary graphics driver instead\n"
-                         "of the open-source variant. Do NOT install this if you have a\n"
-                         "Nvidia Optimus laptop"),
     'lamp': _("This option installs a web server (you can choose\n"
               "Apache or Nginx) plus a database server (Mariadb)\n"
               "and PHP."),
@@ -288,7 +284,7 @@ TOOLTIPS = {
     'spotify': _("Spotify is a widely popular music, podcast, and video streaming service.\n"
                  "It offers millions of songs and sound tracks, all available for free.\n"
                  "However, a paid subscription is required to download the songs and listen to them\n"
-                 "offline."),
+                 "offline. (Installed from external source to avoid copywrite issues)"),
     'visual': _("Compton is a lightweight, standalone composite manager,\n"
                 "suitable for use with window managers that do not natively\n"
                 "provide compositing functionality. Compton itself is a fork\n"

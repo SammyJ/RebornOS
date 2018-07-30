@@ -314,7 +314,6 @@
             <pkgname>bleachbit</pkgname>
             <pkgname>timeshift</pkgname>
             <pkgname>stacer</pkgname>
-            <pkgname>reborn-recovery</pkgname>
         </feature>
         <feature name="movie">
             <pkgname>openshot</pkgname>
