@@ -75,10 +75,10 @@ systemctl -fq enable pacman-init.service
             /usr/bin/update-ca-trust
         fi
         if [ -f /usr/bin/update-desktop-database ]; then
-            /usr/bin/update-desktop-database --quiet
+           /usr/bin/update-desktop-database --quiet
         fi
         if [ -f /usr/bin/update-mime-database ]; then
-            /usr/bin/update-mime-database /usr/share/mime
+           /usr/bin/update-mime-database /usr/share/mime
         fi
         if [ -f /usr/bin/gdk-pixbuf-query-loaders ]; then
             /usr/bin/gdk-pixbuf-query-loaders --update-cache

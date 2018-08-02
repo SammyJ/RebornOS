@@ -334,7 +334,6 @@ sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/ma
 echo "DONE"
 echo
 echo "Fixing /usr/bin/reflector-antergos file for use in the ISO"
-sudo reflector-antergos --save
 rm -f ${work_dir}/${arch}/airootfs/usr/bin/reflector-antergos
 cp ${script_path}/scripts/reflector-antergos ${work_dir}/${arch}/airootfs/usr/bin/
 cp ${script_path}/scripts/antergos-mirrorlist-20180708-1-any.pkg.tar.xz ${work_dir}/${arch}/airootfs/usr/bin/
@@ -346,8 +345,13 @@ echo "DONE"
 # Prepare kernel/initramfs ${install_dir}/boot/
 make_boot() {
     mkdir -p ${work_dir}/iso/${install_dir}/boot/${arch}
+    echo "Executed 'mkdir -p' Command Successfully"
     cp ${work_dir}/${arch}/airootfs/boot/archiso.img ${work_dir}/iso/${install_dir}/boot/${arch}/archiso.img
+    echo "Built 'archiso.img' Successfully"
     cp ${work_dir}/${arch}/airootfs/boot/vmlinuz-linux ${work_dir}/iso/${install_dir}/boot/${arch}/vmlinuz
+    echo "Built 'vmlinuz-linux' Successfully"
+    echo "DONE"
+    echo
 }
 # Add other aditional/extra files to ${install_dir}/boot/
 make_boot_extra() {
@@ -369,7 +373,7 @@ make_syslinux() {
     cp ${work_dir}/${arch}/airootfs/usr/lib/syslinux/bios/memdisk ${work_dir}/iso/${install_dir}/boot/syslinux
     mkdir -p ${work_dir}/iso/${install_dir}/boot/syslinux/hdt
     gzip -c -9 ${work_dir}/${arch}/airootfs/usr/share/hwdata/pci.ids > ${work_dir}/iso/${install_dir}/boot/syslinux/hdt/pciids.gz
-    gzip -c -9 ${work_dir}/${arch}/airootfs/usr/lib/modules/*-ARCH/modules.alias > ${work_dir}/iso/${install_dir}/boot/syslinux/hdt/modalias.gz
+#    gzip -c -9 ${work_dir}/${arch}/airootfs/usr/lib/modules/*-ARCH/modules.alias > ${work_dir}/iso/${install_dir}/boot/syslinux/hdt/modalias.gz
 }
 # Prepare /isolinux
 make_isolinux() {
