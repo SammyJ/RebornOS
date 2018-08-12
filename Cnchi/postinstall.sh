@@ -539,6 +539,9 @@ fi
     cp /usr/share/cnchi/pacman.conf ${CN_DESTDIR}/etc/
     cp /etc/pacman.d/reborn-mirrorlist ${CN_DESTDIR}/etc/pacman.d/
 
+    #Copy blacklist.conf file over
+    cp /etc/modprobe.d/blacklist.conf ${CN_DESTDIR}/etc/modprobe.d/
+
     #Refresh Databases
     chroot ${CN_DESTDIR} sudo pacman -Syy --noconfirm
     chroot ${CN_DESTDIR} sudo pacman-key --init

@@ -21,5 +21,8 @@ sudo reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 # sudo cp /usr/bin/cnchi/pacman.conf /etc/
 # sudo mv /usr/bin/cnchi/reborn-mirrorlist2 /etc/pacman.d/reborn-mirrorlist
 # fi
+echo "######################################################"
+echo "#####################   DONE   ##########################"
+echo "######################################################"
 else exec /usr/bin/internet.sh
 fi

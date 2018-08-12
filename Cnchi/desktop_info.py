@@ -73,25 +73,25 @@ LIBS = {
     'qt': ["kde", "lxqt"]
 }
 
-ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "mycroft", "graphic_drivers", "lamp", "lts", "office", "redshift", "power", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
+ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "mycroft", "graphic_drivers", "lamp", "lts", "office", "wps-office", "libreoffice", "redshift", "power", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
 
 # Not all desktops have all features
 EXCLUDED_FEATURES = {
-    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "office", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "mycroft", "gtk-play", "qt-play", "power", "redshift", "spotify", "wallpapers"],
-    'apricity': ["lamp", "visual", "nautilus", "qt-play"],
-    'cinnamon': ["lamp", "visual", "nemo", "qt-play"],
-    'deepin': ["lamp", "visual", "qt-play"],
-    'pantheon': ["lamp", "visual", "qt-play", "nemo"],
-   'windows': ["lamp", "visual", "qt-play", "nemo"],
-    'gnome': ["lamp", "visual", "nautilus", "qt-play"],
-    'kde': ["lamp", "visual", "gtk-play"],
-    'mate': ["lamp", "visual", "qt-play"],
-    'openbox': ["lamp", "qt-play"],
-    'xfce': ["lamp", "visual", "qt-play"],
-    'budgie': ["lamp", "visual", "qt-play"],
-    'enlightenment': ["lamp", "visual", "qt-play"],
-    'i3': ["lamp", "qt-play"],
-    'lxqt': ["lamp", "visual", "gtk-play"]
+    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "wps-office", "libreoffice", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "mycroft", "gtk-play", "qt-play", "power", "redshift", "spotify", "wallpapers", "wps-office", "libreoffice", "office"],
+    'apricity': ["lamp", "visual", "nautilus", "qt-play", "office"],
+    'cinnamon': ["lamp", "visual", "nemo", "qt-play", "office"],
+    'deepin': ["lamp", "visual", "qt-play", "office"],
+    'pantheon': ["lamp", "visual", "qt-play", "nemo", "office"],
+   'windows': ["lamp", "visual", "qt-play", "nemo", "office"],
+    'gnome': ["lamp", "visual", "nautilus", "qt-play", "office"],
+    'kde': ["lamp", "visual", "gtk-play", "office"],
+    'mate': ["lamp", "visual", "qt-play", "office"],
+    'openbox': ["lamp", "qt-play", "office"],
+    'xfce': ["lamp", "visual", "qt-play", "office"],
+    'budgie': ["lamp", "visual", "qt-play", "office"],
+    'enlightenment': ["lamp", "visual", "qt-play", "office"],
+    'i3': ["lamp", "qt-play", "office"],
+    'lxqt': ["lamp", "visual", "gtk-play", "office"]
 }
 
 # Session names for lightDM setup (/usr/share/xsessions)

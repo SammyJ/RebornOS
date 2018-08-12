@@ -62,6 +62,8 @@ ICON_NAMES = {
     'nemo': 'system-file-manager',
     'nautilus': 'system-file-manager',
     'nixnote': 'evernote',
+    'wps-office': 'wps-office-wpt',
+    'libreoffice': 'libreoffice-writer',
     'office': 'libreoffice-writer',
     'power': 'battery-full-charged',
     'redshift': 'redshift',
@@ -109,7 +111,9 @@ TITLES = {
     'graphics': _("Common Photo editing Programs for Linux"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP"),
     'lts': _("Kernel (LTS version)"),
-    'office': _("LibreOffice"),
+    'libreoffice': _("LibreOffice"),
+    'wps-office': _("WPS Office"),
+    'office': _("Office"),
     'power': _("Power Saving"),
     'redshift': _("Redshift"),
     'sshd': _("Windows sharing SMB"),
@@ -147,7 +151,9 @@ DESCRIPTIONS = {
     'graphics': _("Common Photo editing Programs for Linux"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP installation and setup."),
     'cups': _("Installation of printer drivers and management tools."),
-    'office': _("Open source office suite. Supports editing MS Office files."),
+    'wps-office': _("Office Suit for Linux, made for those used to MS Office"),
+    'libreoffice': _("Open source office suite. Supports editing MS Office files."),
+    'office': _("Brand New, Open Source Office Suite! (Yep, there's another one out there)"),
     'visual': _("Enable transparency, shadows, and other desktop effects."),
     'vlc': _("Ultimate Media Player For Linux"),
     'firewall': _("Control the incoming and outgoing network traffic."),
@@ -262,7 +268,11 @@ TOOLTIPS = {
              "package includes ext4 support. For Antergos users seeking a long-term\n"
              "support kernel, or who want a fallback kernel in case the latest kernel\n"
              "version causes problems, this option is the answer."),
-    'office': _("LibreOffice is the free power-packed Open Source\n"
+    'office': _("Congrats! You found an Easter Egg. And wasted a whole 5 seconds doing so - much as I have wasted a whole 30 writing this."),
+    'wps-office': _("WPS Office is the free power-packed Office Suite made to make\n"
+                      "even those most used to Microsoft Office feel at home. Looking nearly\n"
+                      "identical to Microsoft Office, this productivity suite is great for everyone"),
+    'libreoffice': _("LibreOffice is the free power-packed Open Source\n"
                 "personal productivity suite for Windows, Macintosh\n"
                 "and Linux, that gives you six feature-rich applications\n"
                 "for all your document production and data processing\n"

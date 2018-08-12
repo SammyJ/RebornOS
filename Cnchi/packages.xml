@@ -358,12 +358,12 @@
         <feature name="lts">
             <pkgname>linux-lts</pkgname>
         </feature>
-        <feature name="office">
-            <!-- There're now two libreoffice branches, fresh and still
-            Fresh is a LibreOffice branch which contains new features and program enhancements
-            while still is more stable and only gets bug fixes. -->
-            <pkgname>libreoffice-fresh</pkgname>
+       <feature name="libreoffice">
+              <pkgname>libreoffice-fresh</pkgname>
         </feature>
+        <feature name="wps-office">
+            <pkgname>wps-office</pkgname>
+       </feature>
         <feature name="power">
             <pkgname>tlp</pkgname>
             <pkgname>thermald</pkgname>
