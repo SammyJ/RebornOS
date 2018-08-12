@@ -358,6 +358,9 @@
         <feature name="lts">
             <pkgname>linux-lts</pkgname>
         </feature>
+       <feature name="office">
+              <pkgname>toilet</pkgname>
+        </feature>
        <feature name="libreoffice">
               <pkgname>libreoffice-fresh</pkgname>
         </feature>
