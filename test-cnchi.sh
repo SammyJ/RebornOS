@@ -10,6 +10,17 @@ export CNCHI_GIT_URL="https://github.com/Antergos/Cnchi/archive/${CNCHI_GIT_BRAN
 export script_path="/usr/share"
 export REBORN="/usr/share/cnchi/reborn"
 
+QUESTION(){
+echo
+echo "Do you want Cnchi to be wiped from your system, without building anything new?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) REMOVE; break;;
+        No ) RUN;break;;
+    esac
+done
+}
+
 # Removing Cnchi files if they exist
 REMOVE(){
 echo
@@ -272,10 +283,22 @@ sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/main_window.py
 echo "DONE"
 }
 
-export -f DOWNLOAD_SIMPLE DOWNLOAD_EXPERIMENTAL ASK CUSTOMIZE INSTALL REMOVE
-
+RUN(){
+echo
+echo
+echo "YAY! Thankyou for your help in maintaining Reborn."
+echo "We surely need it! So have fun, and feel free to"
+echo "message me (Keegan) anytime you want. Got questions?"
+echo "Just ask! Thanks, and good luck."
+echo
+echo
+echo
 REMOVE
 INSTALL
 ASK
 CUSTOMIZE
+}
 
+export -f QUESTION DOWNLOAD_SIMPLE DOWNLOAD_EXPERIMENTAL ASK CUSTOMIZE INSTALL REMOVE RUN
+
+QUESTION
