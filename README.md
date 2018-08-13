@@ -11,6 +11,7 @@
 - arch-install-scripts
 - cpio
 - dosfstools
+- git 
 - libisoburn
 - mkinitcpio-nfs-utils
 - make
@@ -31,7 +32,7 @@ Please check that you have 5GB (or more) of free harddisk space in your root par
 
 1. Install dependencies:
 ```
-sudo pacman -S arch-install-scripts cpio dosfstools libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
+sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
 ```
 2. Clone the repository recursively:
 ```
@@ -60,6 +61,15 @@ Say you've done all the steps above a few days ago, but since then new code has 
 git pull origin master
 ```
 3. Actually, there is no third step. You're all done and good to go!
+
+### Test the Latest and Greatest Code out for Cnchi WITHOUT Building an ISO
+
+1. Just open a terminal and navigate to your `RebornOS` folder.
+2. Simply type this in, and you're all done!
+```
+sudo ./test-cnchi.sh
+```
+3. Enjoy!
 
 ### Upload Reborn OS to Sourceforge (note for Reborn OS team)
 
