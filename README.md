@@ -71,6 +71,19 @@ sudo ./test-cnchi.sh
 ```
 3. Enjoy!
 
+### General Notes and Information
+
+- `build.sh`: script used to build the ISO. 
+- `packages.both`: simply a list of all packages to be installed in an ISO during the build process. To change the DE, login manager, or any other grouping of packages, simply edit this file.
+- `pacman.conf`: the pacman.conf file used by build.sh to build the ISO. With this, it can ignore whatever personal configs you have on your own system in `/etc/pacman.conf` and instead focus solely on this one.
+- `run.sh`: um... useless file. Going to get rid of it soon.
+- `TEST_FILE.sh`: guess what? Another outdated, useless file waiting to be gotten rid of,
+- `translations.sh`: translation magic!
+- `pacman-init.service`: adds a pacman module to systemd. I think it works in our ISO, but honestly its something snagged from the Antergos ISo - and I don't entirely know if it does anything in ours. However, it sure does sound like a useful file, right?
+- `clean.sh`: easy file to use to remove your `build` and `out` folder, in general just an easy method of getting everything all sparkly clean and ready to build another ISO.
+- `config`: configurations for what version of Cnchi to use in our ISO, as well as where to fetch it from.
+- `gitv2.sh`: a secial file made by Palanthis so as to automate pushing dev changes up to Gitlab here.
+
 ### Upload Reborn OS to Sourceforge (note for Reborn OS team)
 
 - Run `rsync -v --progress -e ssh /home/$USER/reborn/out/Reborn-OS-2017.12.13-x86_64.iso {SOURCEFORGE_USER_NAME}@frs.sourceforge.net:/home/frs/project/antergos-deepin/
