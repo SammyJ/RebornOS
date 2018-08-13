@@ -8,6 +8,7 @@
 export CNCHI_GIT_BRANCH="0.14.426"
 export CNCHI_GIT_URL="https://github.com/Antergos/Cnchi/archive/${CNCHI_GIT_BRANCH}.zip"
 export script_path="/usr/share"
+export REBORN="/usr/share/cnchi/reborn"
 
 # Removing Cnchi files if they exist
 echo "Removing all installed instances of Cnchi"
@@ -62,3 +63,129 @@ echo "#########################################################"
         fi
     done
 rm -rf ${script_path}/Cnchi-${CNCHI_GIT_BRANCH}
+
+# Download Reborn's Cnchi files
+echo
+echo "DOWNLOADING SPECIAL REBORN FILES FOR CNCHI..."
+mkdir $REBORN
+cd $REBORN/
+wget -r https://gitlab.com/RebornOS/RebornOS/tree/master/Cnchi
+wget -r https://gitlab.com/RebornOS/RebornOS/tree/master/images
+cd /
+cd /usr/bin/
+wget https://gitlab.com/RebornOS/RebornOS/blob/master/airootfs/usr/bin/cnchi-start.sh
+chmod +x /usr/bin/cnchi-start.sh
+cd /
+cd /usr/share/applications/
+wget https://gitlab.com/RebornOS/RebornOS/blob/master/airootfs/usr/share/applications/cnchi.desktop
+echo "DONE"
+
+# Customize Cnchi for Reborn OS
+echo
+echo "MOVING DOWNLOADED FILES OVER..."
+rm /usr/share/cnchi/data/packages.xml
+cp $REBORN/Cnchi/packages.xml /usr/share/cnchi/data/
+rm /usr/share/cnchi/data/pacman.tmpl
+cp $REBORN/Cnchi/pacman.tmpl /usr/share/cnchi/data/
+rm /usr/share/applications/cnchi.desktop
+rm /usr/share/cnchi/src/features_info.py
+cp $REBORN/Cnchi/features_info.py /usr/share/cnchi/src/
+rm /usr/share/cnchi/src/pages/features.py
+cp $REBORN/Cnchi/features.py /usr/share/cnchi/src/pages/
+rm /usr/share/cnchi/src/desktop_info.py
+cp $REBORN/Cnchi/desktop_info.py /usr/share/cnchi/src/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
+#cp ${script_path}/Cnchi/encfs.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
+rm /usr/share/cnchi/src/installation/boot/grub2.py
+cp $REBORN/Cnchi/grub2.py /usr/share/cnchi/src/installation/boot/
+rm /usr/share/cnchi/scripts/10_antergos
+cp $REBORN/Cnchi/10_antergos /usr/share/cnchi/scripts/
+rm /usr/share/cnchi/src/installation/boot/systemd_boot.py
+cp $REBORN/Cnchi/systemd_boot.py /usr/share/cnchi/src/installation/boot/
+rm /usr/share/cnchi/scripts/postinstall.sh
+cp $REBORN/Cnchi/postinstall.sh /usr/share/cnchi/scripts/
+chmod +x /usr/share/cnchi/scripts/postinstall.sh
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
+rm /usr/share/cnchi/src/info.py
+cp $REBORN/Cnchi/info.py /usr/share/cnchi/src/
+#cp ${script_path}/Cnchi/main_window.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
+rm /usr/share/cnchi/src/show_message.py
+cp $REBORN/Cnchi/show_message.py /usr/share/cnchi/src/
+rm /usr/share/cnchi/src/pages/slides.py
+cp $REBORN/Cnchi/slides.py /usr/share/cnchi/src/pages/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
+#cp ${script_path}/Cnchi/timezone.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
+rm /usr/share/cnchi/src/pages/welcome.py
+cp $REBORN/Cnchi/welcome.py /usr/share/cnchi/src/pages/
+#rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
+#cp ${script_path}/Cnchi/desktop.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
+rm /usr/share/cnchi/src/download/metalink.py
+cp $REBORN/Cnchi/metalink.py /usr/share/cnchi/src/download/
+rm /usr/share/cnchi/src/pacman/pac.py
+cp $REBORN/Cnchi/pac.py /usr/share/cnchi/src/pacman/
+rm /usr/share/cnchi/data/images/antergos/antergos-logo-mini2.png
+cp $REBORN/Cnchi/antergos-logo-mini2.png /usr/share/cnchi/data/images/antergos/
+cp $REBORN/Cnchi/20-intel.conf /usr/share/cnchi/
+cp $REBORN/Cnchi/lightdm-webkit2-greeter.conf /usr/share/cnchi/
+rm /usr/share/cnchi/data/images/slides/1.png
+cp $REBORN/Cnchi/1.png /usr/share/cnchi/data/images/slides/
+rm /usr/share/cnchi/data/images/slides/2.png
+cp $REBORN/Cnchi/2.png /usr/share/cnchi/data/images/slides/
+rm /usr/share/cnchi/data/images/slides/3.png
+cp $REBORN/Cnchi/3.png /usr/share/cnchi/data/images/slides/
+cp $REBORN/Cnchi/sddm.conf /usr/share/cnchi/
+rm /usr/share/pixmaps/cnchi.png
+cp $REBORN/airootfs/usr/share/applications/cnchi.png /usr/share/pixmaps/
+rm /usr/share/cnchi/data/images/antergos/antergos-icon.png
+cp $REBORN/Cnchi/antergos-icon.png /usr/share/cnchi/data/images/antergos/antergos-icon.png
+cp $REBORN/Cnchi/flatpak.sh /airootfs/usr/share/cnchi/
+cp $REBORN/Cnchi/pkcon.sh /usr/share/cnchi/
+cp $REBORN/Cnchi/pkcon2.sh /airootfs/usr/share/cnchi/
+cp $REBORN/Cnchi/flatpak.desktop /usr/share/cnchi/
+#cp ${script_path}/Cnchi/pacman2.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp $REBORN/Cnchi/update.desktop /usr/share/cnchi/
+cp $REBORN/images/pantheon.png /usr/share/cnchi/data/images/desktops/
+rm /usr/share/cnchi/data/images/desktops/deepin.png
+rm /usr/share/cnchi/data/images/desktops/kde.png
+rm /usr/share/cnchi/data/images/desktops/lxqt.png
+rm /usr/share/cnchi/data/images/desktops/openbox.png
+rm /usr/share/cnchi/data/images/desktops/xfce.png
+cp $REBORN/images/apricity.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/deepin.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/cinnamon.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/windows.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/kde.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/lxqt.png /airootfs/usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/enlightenment.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/xfce.png /usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/desktop-environment-apricity.svg /usr/share/cnchi/data/icons/scalable/
+cp $REBORN/images/desktop-environment-pantheon.svg /usr/share/cnchi/data/icons/scalable/
+cp $REBORN/images/desktop-environment-windows.svg /usr/share/cnchi/data/icons/scalable/
+cp $REBORN/images/desktop-environment-budgie.svg /usr/share/cnchi/data/icons/scalable/
+cp $REBORN/images/desktop-environment-i3.svg /usr/share/cnchi/data/icons/scalable/
+cp $REBORN/Cnchi/reborn-mirrorlist /etc/pacman.d/
+cp $REBORN/Cnchi/deepin-fix.sh /usr/share/cnchi/
+cp $REBORN/Cnchi/deepin-fix.service /usr/share/cnchi/
+echo "DONE"
+echo
+echo "Replacing Antergos mentions with Reborn"
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/advanced.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/alongside.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/ask.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/automatic.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/check.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/gtkbasebox.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/keymap.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/language.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/location.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/slides.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/summary.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/timezone.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/user_info.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/wireless.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/zfs.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/pages/desktop.py
+sed -i "s/gnome/deepin/g" /usr/share/cnchi/src/pages/desktop.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/encfs.py
+sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/main_window.py
+echo "DONE"
