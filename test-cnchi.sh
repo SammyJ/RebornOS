@@ -12,11 +12,21 @@ export REBORN="/usr/share/cnchi/reborn"
 
 QUESTION(){
 echo
-echo "Do you want Cnchi to be wiped from your system, without building anything new?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) REMOVE; break;;
-        No ) RUN;break;;
+echo "Please select your preferred course of action:"
+echo
+options=("Remove all instances of Cnchi from my system" "Build Cnchi" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Remove all instances of Cnchi from my system")
+            REMOVE;break;;
+        "Build Cnchi")
+            RUN;break;;
+        "Quit")
+            break
+            ;;
+        *) echo "ERROR!!! ERROR!!!! SOUND THE ALARM!!!" 
+            echo "Sadly, option $REPLY is not possible! Please select either option 1, 2, or 3 instead. Thank you!";;
     esac
 done
 }
