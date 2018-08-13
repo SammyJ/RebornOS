@@ -11,18 +11,24 @@ export script_path="/usr/share"
 export REBORN="/usr/share/cnchi/reborn"
 
 # Removing Cnchi files if they exist
-echo "Removing all installed instances of Cnchi"
-if [ -f /usr/share/cnchi/Readme.md ]; then
+REMOVE(){
+echo
+echo "REMOVING ALL INSTALLED INSTANCES OF CNCHI..."
+if [ -f /usr/share/cnchi/bin/cnchi ]; then
 rm -rf /usr/share/cnchi
 rm -f /usr/bin/cnchi
 rm -f /usr/share/applications/cnchi.desktop
 rm -f /usr/share/pixmaps/cnchi.png
 fi
 echo "DONE"
+}
+# Downloading and installing Cnchi
+INSTALL(){
 echo
 echo "#########################################################"
-echo "########## DOWNLOADING & INSTALLING CNCHI... ################"
+echo "########## DOWNLOADING & INSTALLING CNCHI... ############"
 echo "#########################################################"
+echo
     wget "${CNCHI_GIT_URL}" -O ${script_path}/cnchi-git.zip
     unzip ${script_path}/cnchi-git.zip -d ${script_path}
     rm -f ${script_path}/cnchi-git.zip
@@ -63,31 +69,106 @@ echo "#########################################################"
         fi
     done
 rm -rf ${script_path}/Cnchi-${CNCHI_GIT_BRANCH}
+}
 
-# Download Reborn's Cnchi files
+# Ask whether or not to use experimental files for Cnchi
+ASK(){
 echo
-echo "DOWNLOADING SPECIAL REBORN FILES FOR CNCHI..."
+echo
+echo "Do you wish to use our experimental files for Cnchi?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) DOWNLOAD_EXPERIMENTAL; break;;
+        No ) DOWNLOAD_SIMPLE;break;;
+    esac
+done
+}
+
+# Download Reborn's experimental files
+DOWNLOAD_EXPERIMENTAL(){
+echo
+echo
+echo "Great! Just know that the experimental files are just that - experimental."
+echo "As such, they are in progress and may not work. You've been warned!"
+echo
+echo "DOWNLOADING SPECIAL REBORN FILES FOR CNCHI (EXPERIMENTAL)..."
+echo
+echo
+cd /
+cd /usr/share/cnchi/
 mkdir $REBORN
-cd $REBORN/
-wget -r https://gitlab.com/RebornOS/RebornOS/tree/master/Cnchi
-wget -r https://gitlab.com/RebornOS/RebornOS/tree/master/images
+git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
+mv /usr/share/cnchi/RebornOS/images $REBORN/images
+cd /
+cd /tmp/
+git clone https://gitlab.com/Azaiel/RebornOS-Cnchi-Modified.git --recursive
+mv /tmp/RebornOS-Cnchi-Modified $REBORN/Cnchi
 cd /
 cd /usr/bin/
-wget https://gitlab.com/RebornOS/RebornOS/blob/master/airootfs/usr/bin/cnchi-start.sh
+if [ -f /usr/bin/cnchi-start.sh ]; then
+rm -f /usr/bin/cnchi-start.sh
+fi
+wget https://gitlab.com/RebornOS/RebornOS/raw/master/airootfs/usr/bin/cnchi-start.sh
 chmod +x /usr/bin/cnchi-start.sh
 cd /
 cd /usr/share/applications/
-wget https://gitlab.com/RebornOS/RebornOS/blob/master/airootfs/usr/share/applications/cnchi.desktop
+if [ -f /usr/share/applications/cnchi.desktop ]; then
+rm -f /usr/share/applications/cnchi.desktop
+fi
+if [ -f /usr/share/applications/antergos-install.desktop ]; then
+rm -f /usr/share/applications/antergos-install.desktop
+fi
+cp /usr/share/cnchi/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
 echo "DONE"
+}
+
+# Download Reborn's normal Cnchi files instead
+DOWNLOAD_SIMPLE(){
+echo
+echo
+echo "Fabulous! Playing it safe I see :)"
+echo "Well, have fun and happy hacking."
+echo
+echo "DOWNLOADING SPECIAL REBORN FILES FOR CNCHI (NOT EXPERIMENTAL)..."
+echo
+echo
+cd /
+cd /usr/share/cnchi/
+mkdir $REBORN
+cd $REBORN/
+git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
+mv $REBORN/RebornOS/Cnchi $REBORN/Cnchi
+mv $REBORN/RebornOS/images $REBORN/images
+cd /
+cd /usr/bin/
+if [ -f /usr/bin/cnchi-start.sh ]; then
+rm -f /usr/bin/cnchi-start.sh
+fi
+wget https://gitlab.com/RebornOS/RebornOS/raw/master/airootfs/usr/bin/cnchi-start.sh
+chmod +x /usr/bin/cnchi-start.sh
+cd /
+cd /usr/share/applications/
+if [ -f /usr/share/applications/cnchi.desktop ]; then
+rm -f /usr/share/applications/cnchi.desktop
+fi
+if [ -f /usr/share/applications/antergos-install.desktop ]; then
+rm -f /usr/share/applications/antergos-install.desktop
+fi
+cp $REBORN/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
+echo "DONE"
+}
 
 # Customize Cnchi for Reborn OS
+CUSTOMIZE(){
+echo
 echo
 echo "MOVING DOWNLOADED FILES OVER..."
+echo
+echo
 rm /usr/share/cnchi/data/packages.xml
 cp $REBORN/Cnchi/packages.xml /usr/share/cnchi/data/
 rm /usr/share/cnchi/data/pacman.tmpl
 cp $REBORN/Cnchi/pacman.tmpl /usr/share/cnchi/data/
-rm /usr/share/applications/cnchi.desktop
 rm /usr/share/cnchi/src/features_info.py
 cp $REBORN/Cnchi/features_info.py /usr/share/cnchi/src/
 rm /usr/share/cnchi/src/pages/features.py
@@ -135,12 +216,12 @@ rm /usr/share/cnchi/data/images/slides/3.png
 cp $REBORN/Cnchi/3.png /usr/share/cnchi/data/images/slides/
 cp $REBORN/Cnchi/sddm.conf /usr/share/cnchi/
 rm /usr/share/pixmaps/cnchi.png
-cp $REBORN/airootfs/usr/share/applications/cnchi.png /usr/share/pixmaps/
+cp $REBORN/Cnchi/cnchi.png /usr/share/pixmaps/
 rm /usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp $REBORN/Cnchi/antergos-icon.png /usr/share/cnchi/data/images/antergos/antergos-icon.png
-cp $REBORN/Cnchi/flatpak.sh /airootfs/usr/share/cnchi/
+cp $REBORN/Cnchi/flatpak.sh /usr/share/cnchi/
 cp $REBORN/Cnchi/pkcon.sh /usr/share/cnchi/
-cp $REBORN/Cnchi/pkcon2.sh /airootfs/usr/share/cnchi/
+cp $REBORN/Cnchi/pkcon2.sh /usr/share/cnchi/
 cp $REBORN/Cnchi/flatpak.desktop /usr/share/cnchi/
 #cp ${script_path}/Cnchi/pacman2.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp $REBORN/Cnchi/update.desktop /usr/share/cnchi/
@@ -155,7 +236,7 @@ cp $REBORN/images/deepin.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/cinnamon.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/windows.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/kde.png /usr/share/cnchi/data/images/desktops/
-cp $REBORN/images/lxqt.png /airootfs/usr/share/cnchi/data/images/desktops/
+cp $REBORN/images/lxqt.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/enlightenment.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/xfce.png /usr/share/cnchi/data/images/desktops/
 cp $REBORN/images/desktop-environment-apricity.svg /usr/share/cnchi/data/icons/scalable/
@@ -189,3 +270,12 @@ sed -i "s/gnome/deepin/g" /usr/share/cnchi/src/pages/desktop.py
 sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/encfs.py
 sed -i "s/Antergos/Reborn/g" /usr/share/cnchi/src/main_window.py
 echo "DONE"
+}
+
+export -f DOWNLOAD_SIMPLE DOWNLOAD_EXPERIMENTAL ASK CUSTOMIZE INSTALL REMOVE
+
+REMOVE
+INSTALL
+ASK
+CUSTOMIZE
+
