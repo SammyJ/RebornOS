@@ -28,6 +28,8 @@ echo "REMOVING ALL INSTALLED INSTANCES OF CNCHI..."
 if [ -f /usr/share/cnchi/bin/cnchi ]; then
 rm -rf /usr/share/cnchi
 rm -f /usr/bin/cnchi
+rm -f /usr/bin/cnchi-start.sh
+rm -f /usr/share/applications/antergos-install.desktop
 rm -f /usr/share/applications/cnchi.desktop
 rm -f /usr/share/pixmaps/cnchi.png
 fi
