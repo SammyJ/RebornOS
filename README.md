@@ -54,6 +54,7 @@ To rebuild the ISO, simply remove the `build` folder in addition to emptying the
 ### Update to the Newest Code
 
 Say you've done all the steps above a few days ago, but since then new code has been pushed on up to Gitlab here. Instead of having to go through the process of this all over again, you can simply use these quick steps to update things for you. For this process there are 2 methods of proceeding:
+
 **METHOD 1**
 1. Make sure your `build` folder is removed and your `out` folder is empty.
 2. Update everything with this command:
@@ -61,6 +62,7 @@ Say you've done all the steps above a few days ago, but since then new code has 
 git pull origin master
 ```
 3. Actually, there is no third step. You're all done and good to go!
+
 **METHOD 2**
 1. Enter your RebornOS directory via terminal.
 2. Just run `./HELP_ME.sh` and input your preferred course of action when prompted.
