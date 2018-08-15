@@ -53,14 +53,17 @@ To rebuild the ISO, simply remove the `build` folder in addition to emptying the
 
 ### Update to the Newest Code
 
-Say you've done all the steps above a few days ago, but since then new code has been pushed on up to Gitlab here. Instead of having to go through the process of this all over again, you can simply use these quick steps to update things for you. 
-
+Say you've done all the steps above a few days ago, but since then new code has been pushed on up to Gitlab here. Instead of having to go through the process of this all over again, you can simply use these quick steps to update things for you. For this process there are 2 methods of proceeding:
+**METHOD 1**
 1. Make sure your `build` folder is removed and your `out` folder is empty.
 2. Update everything with this command:
 ```
 git pull origin master
 ```
 3. Actually, there is no third step. You're all done and good to go!
+**METHOD 2**
+1. Enter your RebornOS directory via terminal.
+2. Just run `./HELP_ME.sh` and input your preferred course of action when prompted.
 
 ### Test the Latest and Greatest Code out for Cnchi WITHOUT Building an ISO
 
@@ -74,6 +77,7 @@ sudo ./test-cnchi.sh
 ### General Notes and Information
 
 - `build.sh`: script used to build the ISO. 
+- **`HELP_ME.sh`: script to easily build and update an ISO easily. No advance knowledge needed!**
 - `packages.both`: simply a list of all packages to be installed in an ISO during the build process. To change the DE, login manager, or any other grouping of packages, simply edit this file.
 - `pacman.conf`: the pacman.conf file used by build.sh to build the ISO. With this, it can ignore whatever personal configs you have on your own system in `/etc/pacman.conf` and instead focus solely on this one.
 - `run.sh`: um... useless file. Going to get rid of it soon.
