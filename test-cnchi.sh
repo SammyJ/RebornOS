@@ -5,7 +5,7 @@
 
 
 # Defining Variables
-export CNCHI_GIT_BRANCH="0.14.426"
+export CNCHI_GIT_BRANCH="0.16.201"
 export CNCHI_GIT_URL="https://github.com/Antergos/Cnchi/archive/${CNCHI_GIT_BRANCH}.zip"
 export script_path="/usr/share"
 export REBORN="/usr/share/cnchi/reborn"
@@ -23,8 +23,7 @@ do
         "Build Cnchi")
             RUN;break;;
         "Quit")
-            break
-            ;;
+            break;;
         *) echo "ERROR!!! ERROR!!!! SOUND THE ALARM!!!" 
             echo "Sadly, option $REPLY is not possible! Please select either option 1, 2, or 3 instead. Thank you!";;
     esac
@@ -37,6 +36,7 @@ echo
 echo "REMOVING ALL INSTALLED INSTANCES OF CNCHI..."
 if [ -f /usr/share/cnchi/bin/cnchi ]; then
 rm -rf /usr/share/cnchi
+rm -rf /var/log/cnchi
 rm -f /usr/bin/cnchi
 rm -f /usr/bin/cnchi-start.sh
 rm -f /usr/share/applications/antergos-install.desktop
@@ -98,13 +98,105 @@ rm -rf ${script_path}/Cnchi-${CNCHI_GIT_BRANCH}
 ASK(){
 echo
 echo
-echo "Do you wish to use our experimental files for Cnchi?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) DOWNLOAD_EXPERIMENTAL; break;;
-        No ) DOWNLOAD_SIMPLE;break;;
+echo "Please select your preferred course of action:"
+echo
+options=("Use our experimental Cnchi files" "Use our official, normal Cnchi files" "Do not use modified Cnchi files" "Use your own files instead" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Use our experimental Cnchi files")
+            DOWNLOAD_EXPERIMENTAL;break;;
+        "Use our official, normal Cnchi files")
+            DOWNLOAD_SIMPLE;break;;
+        "Do not use modified Cnchi files")
+            ANTERGOS;break;;
+        "Use your own files instead")
+            FILES;break;;
+        "Quit")
+            break
+            ;;
+        *) echo "ERROR!!! ERROR!!!! SOUND THE ALARM!!!" 
+            echo "Sadly, option $REPLY is not possible! Please select either option 1, 2, 3, 4, or 5 instead. Thank you!";;
     esac
 done
+}
+
+# Use plain old Antergos files (useful for testing sometimes)
+
+ANTERGOS(){
+echo 
+echo
+echo "Nice choice! I know I use this one sometimes to test things myself as well, when I need more control with files"
+echo "Just remember - have fun and continue on! Your work truly means a lot to us at Reborn OS."
+echo
+echo "DOWNLOADING A FEW FILES TO HELP CNCHI START PROPERLY FOR YOU..."
+echo
+echo
+cd /
+cd /usr/share/cnchi/
+mkdir $REBORN
+cd $REBORN/
+git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
+cd /
+cd /usr/bin/
+if [ -f /usr/bin/cnchi-start.sh ]; then
+rm -f /usr/bin/cnchi-start.sh
+fi
+wget https://gitlab.com/RebornOS/RebornOS/raw/master/airootfs/usr/bin/cnchi-start.sh
+chmod +x /usr/bin/cnchi-start.sh
+cd /
+cd /usr/share/applications/
+if [ -f /usr/share/applications/cnchi.desktop ]; then
+rm -f /usr/share/applications/cnchi.desktop
+fi
+if [ -f /usr/share/applications/antergos-install.desktop ]; then
+rm -f /usr/share/applications/antergos-install.desktop
+fi
+cp $REBORN/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
+echo
+echo "DONE WITH EVERYTHING!"
+echo "ENJOY ANTERGOS' CNCHI'"
+}
+
+# Use your own files for Cnchi
+FILES(){
+echo
+echo
+echo "Fabulous! I see you're quite adventurous' :)"
+echo "Well, have fun and happy hacking."
+yad --center --width=350 --height=100 --form --separator='' --title="Select" --text="Select Disired Directory" --save --field="":CDIR > /tmp/reborn-directory.txt
+SAVING=$(sed '1q;d' /tmp/reborn-directory.txt)
+cd $SAVING
+echo
+echo "DOWNLOADING SPECIAL IMAGE FILES FOR CNCHI. THEN INSTALLING YOUR FILES AS WELL..."
+echo
+echo
+cd /
+cd /usr/share/cnchi/
+mkdir $REBORN
+cd $REBORN/
+git clone https://gitlab.com/RebornOS/RebornOS.git --recursive
+cp -r $SAVING $REBORN/Cnchi
+mv $REBORN/RebornOS/images $REBORN/images
+cd /
+cd /usr/bin/
+if [ -f /usr/bin/cnchi-start.sh ]; then
+rm -f /usr/bin/cnchi-start.sh
+fi
+wget https://gitlab.com/RebornOS/RebornOS/raw/master/airootfs/usr/bin/cnchi-start.sh
+chmod +x /usr/bin/cnchi-start.sh
+cd /
+cd /usr/share/applications/
+if [ -f /usr/share/applications/cnchi.desktop ]; then
+rm -f /usr/share/applications/cnchi.desktop
+fi
+if [ -f /usr/share/applications/antergos-install.desktop ]; then
+rm -f /usr/share/applications/antergos-install.desktop
+fi
+cp $REBORN/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
+echo "DONE"
+rm -f /tmp/reborn-directory.txt
+CUSTOMIZE
 }
 
 # Download Reborn's experimental files
@@ -143,6 +235,7 @@ rm -f /usr/share/applications/antergos-install.desktop
 fi
 cp /usr/share/cnchi/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
 echo "DONE"
+CUSTOMIZE
 }
 
 # Download Reborn's normal Cnchi files instead
@@ -179,6 +272,7 @@ rm -f /usr/share/applications/antergos-install.desktop
 fi
 cp $REBORN/RebornOS/airootfs/usr/share/applications/antergos-install.desktop /usr/share/applications/
 echo "DONE"
+CUSTOMIZE
 }
 
 # Customize Cnchi for Reborn OS
@@ -308,9 +402,8 @@ echo
 REMOVE
 INSTALL
 ASK
-CUSTOMIZE
 }
 
-export -f QUESTION DOWNLOAD_SIMPLE DOWNLOAD_EXPERIMENTAL ASK CUSTOMIZE INSTALL REMOVE RUN
+export -f QUESTION DOWNLOAD_SIMPLE DOWNLOAD_EXPERIMENTAL ASK CUSTOMIZE INSTALL REMOVE RUN ANTERGOS
 
 QUESTION

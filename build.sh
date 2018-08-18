@@ -329,7 +329,7 @@ sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pa
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/zfs.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
 sed -i "s/gnome/deepin/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/desktop.py
-sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
+#sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/encfs.py
 sed -i "s/Antergos/Reborn/g" ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/main_window.py
 echo "DONE"
 echo

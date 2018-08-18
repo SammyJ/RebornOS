@@ -20,6 +20,7 @@ gpm
 gptfdisk
 grml-zsh-config
 grub
+gtk3
 hdparm
 ipw2100-fw
 ipw2200-fw
@@ -194,21 +195,29 @@ nvidia-settings
 
 
 reflector-antergos
+encfs
+pam_encfs
 libinput
 clutter
 clutter-gtk
 clutter-gst
+gstreamer
+geoip2-database
 python-cairo
-python-mock
 python
 pyalpm
 python-gobject
+python-geoip2
+python-gobject
+python-libnacl
 python-dbus
+python-defusedxml
+python-feedparser
 python-cairo
 python-requests
+parted
 python-parted
 webkit2gtk
-upower
 python-mako
 iso-codes
 gptfdisk
