@@ -18,17 +18,6 @@
             <packages>
                 <!--<pkgname>antergos-welcome</pkgname>-->
                 <pkgname lib="gtk">dconf-editor</pkgname>
-                <pkgname lang="de">hunspell-de</pkgname> <!-- German hunspell dictionaries -->
-                <pkgname lang="en">hunspell-en</pkgname> <!-- English hunspell dictionaries -->
-                <pkgname lang="es">hunspell-es_es</pkgname> <!-- Spanish hunspell dictionaries -->
-                <pkgname lang="fr">hunspell-fr</pkgname> <!-- French (modern) hunspell dictionaries -->
-                <pkgname lang="he">hunspell-he</pkgname> <!-- Hebrew hunspell dictionary -->
-                <pkgname lang="it">hunspell-it</pkgname> <!-- Italian dictionary for Hunspell -->
-                <pkgname lang="ro">hunspell-ro</pkgname> <!-- Romanian dictionary for Hunspell -->
-                <pkgname lang="el">hunspell-el</pkgname> <!-- Greek hunspell dictionary -->
-                <pkgname lang="hu">hunspell-hu</pkgname> <!-- Hungarian hunspell dictionary -->
-                <pkgname lang="nl">hunspell-nl</pkgname> <!-- Dutch hunspell dictionaries -->
-                <pkgname lang="pl">hunspell-pl</pkgname> <!-- Polish dictionary for Hunspell -->
                 <pkgname lib="gtk">qt5-styleplugins</pkgname>
                 <pkgname>graphic-cosmic-reborn</pkgname>
                 <pkgname>xorg-apps</pkgname>
@@ -241,6 +230,19 @@
         </feature>
         <feature name="firefox">
             <pkgname>firefox</pkgname>
+        </feature>
+        <feature name="hunspell">
+                <pkgname lang="de">hunspell-de</pkgname> <!-- German hunspell dictionaries -->
+                <pkgname lang="en">hunspell-en</pkgname> <!-- English hunspell dictionaries -->
+                <pkgname lang="es">hunspell-es_es</pkgname> <!-- Spanish hunspell dictionaries -->
+                <pkgname lang="fr">hunspell-fr</pkgname> <!-- French (modern) hunspell dictionaries -->
+                <pkgname lang="he">hunspell-he</pkgname> <!-- Hebrew hunspell dictionary -->
+                <pkgname lang="it">hunspell-it</pkgname> <!-- Italian dictionary for Hunspell -->
+                <pkgname lang="ro">hunspell-ro</pkgname> <!-- Romanian dictionary for Hunspell -->
+                <pkgname lang="el">hunspell-el</pkgname> <!-- Greek hunspell dictionary -->
+                <pkgname lang="hu">hunspell-hu</pkgname> <!-- Hungarian hunspell dictionary -->
+                <pkgname lang="nl">hunspell-nl</pkgname> <!-- Dutch hunspell dictionaries -->
+                <pkgname lang="pl">hunspell-pl</pkgname> <!-- Polish dictionary for Hunspell -->
         </feature>
         <feature name="vivaldi">
             <pkgname>vivaldi</pkgname>

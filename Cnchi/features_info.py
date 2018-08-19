@@ -78,7 +78,7 @@ ICON_NAMES = {
     'opera': 'opera'}
 
 # These features are considered 'advanced' so it won't be shown by default
-ADVANCED = [ 'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers' ]
+ADVANCED = [ 'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers', 'hunspell' ]
 
 
 # See http://docs.python.org/2/library/gettext.html "22.1.3.4. Deferred translations"
@@ -109,6 +109,7 @@ TITLES = {
     'movie': _("Common Video Editing Programs for Linux"),
     'mycroft': _("Mycroft"),
     'graphics': _("Common Photo editing Programs for Linux"),
+    'hunspell': _("Spell Check"),
     'lamp': _("Apache (or Nginx) + Mariadb + PHP"),
     'lts': _("Kernel (LTS version)"),
     'libreoffice': _("LibreOffice"),
@@ -143,6 +144,7 @@ DESCRIPTIONS = {
     'firewire': _("Linux Support For Firewire Devices"),
     'games': _("Installs Steam and Playonlinux for gaming enthusiasts."),
     'gtk-play': _("Popular games for Linux, all created for use on your Desktop Environment"),
+    'hunspell': _("Slightly Broken (atm) Spell Check Packages for Reborn"),
     'hardinfo': _("Easy application for extensive hardware analysis"),
     'qt-play': _("Popular games for Linux, all created for use on your Desktop Environment"),
     'maintenance': _("Common Applications to Perform System Maintenance On Linux"),
@@ -240,6 +242,7 @@ TOOLTIPS = {
     'hardinfo': _("Simple application for hardware analysis and system benchmarking.\n"
                   "Through this, you can easily view all of your system specs without\n"
                   "having to revert to the commandline."),
+    'hunspell': _("Blah blah blah... honestly not too much to say for this one. Did I mention it's a spell checker?"),
     'qt-play': _("Popular games for Linux, ranging from complex games like 0 A.D,\n"
                  "Battle for Wesnoth, and Super Tux to basics like Solitaire,\n"
                  "Mines, and Soduku - all tailored for a qt environemt"),
