@@ -7,7 +7,7 @@ QUESTION(){
 echo
 echo "Please select your preferred course of action:"
 echo
-options=("Build an ISO" "Update code to latest stuff on Gitlab" "Quit")
+options=("Build an ISO" "Update code to latest stuff on Gitlab" "Change Branches" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -15,6 +15,8 @@ do
             BUILD;break;;
         "Update code to latest stuff on Gitlab")
             UPDATE;break;;
+        "Change Branches")
+           BRANCHES;break;;
         "Quit")
             break
             ;;
@@ -24,9 +26,23 @@ do
 done
 }
 
+BRANCHES(){
+touch /tmp/branch.txt
+yad --form --separator='\n' \
+    --field="Branch:cb" "master!testing!">/tmp/branch.txt \
+MY_BRANCH=$(sed '1q;d' /tmp/branch.txt)
+sudo git checkout $(sed '1q;d' /tmp/branch.txt)
+echo
+echo
+echo "DONE"
+rm -f /tmp/branch.txt
+echo
+echo
+}
+
 BUILD(){
 echo "ENSURING ALL DEPENDENCIES ARE ALREADY INSTALLED..."
-sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
+sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso yad reflector-antergos --noconfirm --needed
 echo
 if [ -f ./work/pacman.conf ]; then
 echo "REMOVING FILES FROM PREVIOUS BUILD..."
@@ -54,10 +70,10 @@ fi
 echo
 echo
 echo "UPDATING TO THE LATEST AND GREATEST..."
-sudo git pull origin master
+sudo git pull
 echo
 echo "DONE"
 }
 
-export -f QUESTION BUILD UPDATE
+export -f QUESTION BUILD UPDATE BRANCHES
 QUESTION
