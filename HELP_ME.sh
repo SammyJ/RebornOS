@@ -42,7 +42,7 @@ echo
 
 BUILD(){
 echo "ENSURING ALL DEPENDENCIES ARE ALREADY INSTALLED..."
-sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
+sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso yad reflector-antergos --noconfirm --needed
 echo
 if [ -f ./work/pacman.conf ]; then
 echo "REMOVING FILES FROM PREVIOUS BUILD..."

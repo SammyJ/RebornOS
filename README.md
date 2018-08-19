@@ -21,6 +21,7 @@
 - archiso
 - lynx
 - wget
+- yad
 - reflector-antergos
 
 ### Free space
@@ -32,7 +33,7 @@ Please check that you have 5GB (or more) of free harddisk space in your root par
 
 1. Install dependencies:
 ```
-sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso reflector-antergos --noconfirm --needed
+sudo pacman -S arch-install-scripts cpio dosfstools git libisoburn mkinitcpio-nfs-utils make patch squashfs-tools wget lynx archiso yad reflector-antergos --noconfirm --needed
 ```
 2. Clone the repository recursively:
 ```
