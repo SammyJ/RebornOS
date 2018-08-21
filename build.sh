@@ -256,6 +256,8 @@ rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/show_message.py
 cp ${script_path}/Cnchi/show_message.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/slides.py
 cp ${script_path}/Cnchi/slides.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
+rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/ask.py
+cp ${script_path}/Cnchi/ask.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
 #rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
 #cp ${script_path}/Cnchi/timezone.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/welcome.py
