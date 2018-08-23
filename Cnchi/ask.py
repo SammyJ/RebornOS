@@ -539,29 +539,6 @@ class InstallationAsk(GtkBaseBox):
                             progress_bar.set_fraction(fraction)
                         except EOFError as _err:
                             pass
-        logging.debug(
-            "Waiting a minute before proceeding, so as to give Cnchi time to rank mirrors")
-import time
-def countdown(p,q):
-    i=p
-    j=q
-    k=0
-    while True:
-        if(j==-1):
-            j=59
-            i -=1
-        if(j > 9):  
-            print(str(k)+str(i)+":"+str(j), end="\r")
-        else:
-            print(str(k)+str(i)+":"+str(k)+str(j), end="\r")
-        time.sleep(1)
-        j -= 1
-        if(i==0 and j==-1):
-            break
-    if(i==0 and j==-1):
-        print("Done!", end="\r")
-        time.sleep(1)
-countdown(1,00) #countdown(min,sec)
                     must_wait = False
 
             while Gtk.events_pending():
@@ -626,3 +603,4 @@ if __name__ == '__main__':
     from test_screen import _, run
 
     run('InstallationAsk')
+
