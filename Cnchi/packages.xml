@@ -396,7 +396,7 @@
 	</feature>
         <feature name="vlc">
             <pkgname>vlc</pkgname>
-            <pkgname>phonon-qt4-vlc</pkgname>
+            <pkgname>phonon-qt5-vlc</pkgname>
         </feature>
         <feature name="wallpapers">
             <pkgname>variety</pkgname>
