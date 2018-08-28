@@ -5,7 +5,7 @@
 
 
 # Defining Variables
-export CNCHI_GIT_BRANCH="0.16.201"
+export CNCHI_GIT_BRANCH="0.14.475"
 export CNCHI_GIT_URL="https://github.com/Antergos/Cnchi/archive/${CNCHI_GIT_BRANCH}.zip"
 export script_path="/usr/share"
 export REBORN="/usr/share/cnchi/reborn"
@@ -311,6 +311,7 @@ rm /usr/share/cnchi/src/show_message.py
 cp $REBORN/Cnchi/show_message.py /usr/share/cnchi/src/
 rm /usr/share/cnchi/src/pages/slides.py
 cp $REBORN/Cnchi/slides.py /usr/share/cnchi/src/pages/
+rm /usr/share/cnchi/src/pages/ask.py
 cp $REBORN/Cnchi/ask.py /usr/share/cnchi/src/pages/
 #rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/timezone.py
 #cp ${script_path}/Cnchi/timezone.py ${work_dir}/${arch}/airootfs/usr/share/cnchi/src/pages/
