@@ -195,8 +195,10 @@ class Features(GtkBaseBox):
             allow = False
             if self.detect.amd():
                 allow = True
+                self.features.remove("graphic_drivers")
             if self.detect.nvidia() and not self.detect.bumblebee():
                 allow = True
+                self.features.remove("graphic_drivers")
             if not allow:
                 logging.debug("Removing proprietary graphic drivers feature.")
                 self.features.remove("graphic_drivers")
