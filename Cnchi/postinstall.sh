@@ -476,6 +476,7 @@ postinstall() {
         cp /usr/share/cnchi/flatpak.desktop ${CN_DESTDIR}/usr/share/applications/
         cp /usr/share/cnchi/update.desktop ${CN_DESTDIR}/etc/xdg/autostart/
         cp /usr/share/cnchi/updating.sh ${CN_DESTDIR}/usr/bin/
+        chroot ${CN_DESTDIR} mate-panel --reset --layout default
     fi
 
 if [[ xfce = "${CN_DESKTOP}" ]]; then
