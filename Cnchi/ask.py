@@ -1,5 +1,4 @@
-
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # ask.py
@@ -35,6 +34,7 @@ import logging
 import subprocess
 
 import gi
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
@@ -97,6 +97,7 @@ def load_zfs():
 
 class InstallationAsk(GtkBaseBox):
     """ Asks user which type of installation wants to perform """
+
     def __init__(self, params, prev_page="mirrors", next_page=None):
         super().__init__(self, params, "ask", prev_page, next_page)
 
@@ -539,6 +540,8 @@ class InstallationAsk(GtkBaseBox):
                             progress_bar.set_fraction(fraction)
                         except EOFError as _err:
                             pass
+                        cmd = ["/usr/bin/cnchi-rank2.sh"]
+                        subprocess.call(cmd)
                     must_wait = False
 
             while Gtk.events_pending():
@@ -603,4 +606,3 @@ if __name__ == '__main__':
     from test_screen import _, run
 
     run('InstallationAsk')
-

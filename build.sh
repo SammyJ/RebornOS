@@ -343,7 +343,7 @@ cp ${script_path}/scripts/reflector-antergos ${work_dir}/${arch}/airootfs/usr/bi
 echo "DONE"
 echo
 echo "Ranking Antergos mirrors for using in the ISO..."
-reflector-antergos --save
+reflector-antergos --latest 20 --protocol http --save
 rm -f ${work_dir}/${arch}/airootfs/etc/pacman.d/antergos-mirrorlist
 cp /etc/pacman.d/antergos-mirrorlist ${work_dir}/${arch}/airootfs/etc/pacman.d/
 echo "DONE"
