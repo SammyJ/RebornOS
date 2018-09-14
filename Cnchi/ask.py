@@ -540,8 +540,6 @@ class InstallationAsk(GtkBaseBox):
                             progress_bar.set_fraction(fraction)
                         except EOFError as _err:
                             pass
-                        cmd = ["/usr/bin/cnchi-rank2.sh"]
-                        subprocess.call(cmd)
                     must_wait = False
 
             while Gtk.events_pending():
