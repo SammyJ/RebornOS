@@ -73,11 +73,11 @@ LIBS = {
     'qt': ["kde", "lxqt"]
 }
 
-ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "hunspell", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "mycroft", "graphic_drivers", "lamp", "lts", "office", "wps-office", "libreoffice", "redshift", "power", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
+ALL_FEATURES = ["a11y", "aur", "bluetooth", "broadcom", "maintenance", "cups", "chromium", "email", "dropbox", "firefox", "firewire", "opera", "hardinfo", "hunspell", "vivaldi", "firewall", "flash", "games", "graphics", "gtk-play", "hardinfo", "qt-play", "movie", "mycroft", "graphic_drivers", "lamp", "lts", "office", "wps-office", "libreoffice", "redshift", "power", "plymouth", "sshd", "spotify", "visual", "vlc", "nautilus", "nemo", "nixnote", "wallpapers", "wine"]
 
 # Not all desktops have all features
 EXCLUDED_FEATURES = {
-    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "hunspell", "wps-office", "libreoffice", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "mycroft", "gtk-play", "qt-play", "power", "redshift", "spotify", "wallpapers", "wps-office", "libreoffice", "office"],
+    'base': ["bluetooth", "chromium", "maintenance", "dropbox", "email", "firefox", "firewire", "opera", "vivaldi", "firewall", "flash", "games", "graphic_drivers", "graphics", "hardinfo", "hunspell", "wps-office", "libreoffice", "visual", "vlc", "nautilus", "nemo", "nixnote", "qt-play", "movie", "mycroft", "gtk-play", "qt-play", "power", "plymouth", "redshift", "spotify", "wallpapers", "wps-office", "libreoffice", "office"],
     'apricity': ["lamp", "visual", "nautilus", "qt-play", "office"],
     'cinnamon': ["lamp", "visual", "nemo", "qt-play", "office"],
     'deepin': ["lamp", "visual", "qt-play", "office"],

@@ -545,6 +545,16 @@ fi
     #Copy blacklist.conf file over
     cp /etc/modprobe.d/blacklist.conf ${CN_DESTDIR}/etc/modprobe.d/
 
+    #Copy Plymouth Files over if the Plymouth feature has been selected
+    if [[ $(cat ${APP_LIST} | grep "plymouth" | wc -c) -ge 1]]; then
+    echo "[STATUS] Plymouth selected. Configuring now..." >/tmp/postinstall.log
+    cp /usr/share/cnchi/plymouth.sh ${CN_DESTDIR}/usr/bin/
+    cp /usr/share/cnchi/plymouth-reborn.desktop ${CN_DESTDIR}/etc/xdg/autostart/
+    echo "[SUCCESS] Plymouth has been installed" >/tmp/postinstall.log
+    else
+    echo "[STATUS] Plymouth not selected" >/tmp/postinstall.log
+    fi
+
     #Refresh Databases
     chroot ${CN_DESTDIR} sudo pacman -Syy --noconfirm
     chroot ${CN_DESTDIR} sudo pacman-key --init

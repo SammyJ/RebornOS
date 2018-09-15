@@ -332,6 +332,11 @@
         <feature name="mycroft">
             <pkgname>mycroft-reborn</pkgname>
         </feature>
+        <feature name="plymouth">
+            <pkgname>plymouth</pkgname>
+            <pkgname>arch-plymouthize</pkgname>
+            <pkgname>plymouth-theme-arch-charge-big</pkgname>
+        </feature>
         <feature name="redshift">
             <pkgname>redshift</pkgname>
             <pkgname>redshiftgui</pkgname>

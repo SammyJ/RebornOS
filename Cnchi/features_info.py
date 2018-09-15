@@ -64,8 +64,9 @@ ICON_NAMES = {
     'nixnote': 'evernote',
     'wps-office': 'wps-office-wpt',
     'libreoffice': 'libreoffice-writer',
-    'office': 'libreoffice-writer',
+#    'office': 'libreoffice-writer',
     'power': 'battery-full-charged',
+    'plymouth': 'debian-plymouth-manager',
     'redshift': 'redshift',
     'sshd': 'gnome-mime-x-directory-smb-share',
     'spotify': 'spotify-client',
@@ -80,6 +81,8 @@ ICON_NAMES = {
 # These features are considered 'advanced' so it won't be shown by default
 ADVANCED = [ 'lamp', 'sshd', 'visual', 'firewire', 'broadcom', 'nautilus', 'nemo', 'email', 'wallpapers', 'hunspell' ]
 
+# These features are considered 'basic', and will be shown by default
+BASIC = ['opera', 'wine', 'wallpapers', 'vlc', 'vivaldi', 'visual', 'spotify', 'redshift', 'plymouth', 'power', 'libreoffice', 'wps-office', 'nixnote', 'lts', 'graphic_drivers', 'mycroft', 'movie', 'maintenance', 'qt-play', 'hardinfo', 'gtk-play', 'graphics', 'games', 'fonts', 'flash', 'firewall', 'firefox', 'email', 'dropbox', 'chromium', 'cups', 'bluetooth', 'aur', 'a11y']
 
 # See http://docs.python.org/2/library/gettext.html "22.1.3.4. Deferred translations"
 def _(message):
@@ -114,8 +117,9 @@ TITLES = {
     'lts': _("Kernel (LTS version)"),
     'libreoffice': _("LibreOffice"),
     'wps-office': _("WPS Office"),
-    'office': _("Office"),
+#    'office': _("Office"),
     'power': _("Power Saving"),
+    'plymouth': _("Boot Screen"),
     'redshift': _("Redshift"),
     'sshd': _("Windows sharing SMB"),
 #    'skype': _("Skype"),
@@ -155,12 +159,13 @@ DESCRIPTIONS = {
     'cups': _("Installation of printer drivers and management tools."),
     'wps-office': _("Office Suit for Linux, made for those used to MS Office"),
     'libreoffice': _("Open source office suite. Supports editing MS Office files."),
-    'office': _("Brand New, Open Source Office Suite! (Yep, there's another one out there)"),
+#    'office': _("Brand New, Open Source Office Suite! (Yep, there's another one out there)"),
     'visual': _("Enable transparency, shadows, and other desktop effects."),
     'vlc': _("Ultimate Media Player For Linux"),
     'firewall': _("Control the incoming and outgoing network traffic."),
     'lts': _("Long term support (LTS) Linux kernel and modules."),
     'power': _("Power Saving Tools Geared Specifically for Laptops"),
+    'plymouth': _("Uses Plymouth To Offer You a Polished Boot Screen"),
     'redshift': _("Color Temperature Adjuster Based on Local Time"),
     'sshd': _("Provides client access to shared files and printers."),
  #   'skype': _("A User Friendly Video Chat Tool Made By Microsoft"),
@@ -285,6 +290,9 @@ TOOLTIPS = {
                "performance in the background without interfering with your daily use at all,\n"
                "and Thermald will conveniently ensure that your fans and CPU both remain\n"
                "at acceptable levels"),
+    'plymouth': _("Dislike commands and status reports flowing across your screen while booting up?\n"
+                             "Want your computer to have an extra bit of eye-candy? Just enable this option,\n"
+                             "which will configure Plymouth - the standard boot screen program for Linux - for you"),
     'redshift': _("Redshift is an application that adjusts the computer display's color temperature\n"
                           "based upon the time of day - with absolutely no manual intervention needed after\n"
                           "the initial setup."),
