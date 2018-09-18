@@ -1,4 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Ranking Mirrors Popup
-Exec=bash /usr/bin/cnchi-rank.sh

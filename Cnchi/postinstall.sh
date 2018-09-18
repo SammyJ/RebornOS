@@ -479,6 +479,7 @@ postinstall() {
         chroot ${CN_DESTDIR} mate-panel --reset --layout default
         chroot ${CN_DESTDIR} mate-panel --reset --layout cinnamon
         chroot ${CN_DESTDIR} sudo mate-panel --reset --layout cinnamon
+        cp /usr/share/cnchi/mate-panel.desktop ${CN_DESTDIR}/etc/xdg/autostart/
     fi
 
 if [[ xfce = "${CN_DESKTOP}" ]]; then
@@ -546,12 +547,16 @@ fi
     cp /etc/modprobe.d/blacklist.conf ${CN_DESTDIR}/etc/modprobe.d/
 
     #Copy Plymouth Files over if the Plymouth feature has been selected
-    if [[ $(cat ${APP_LIST} | grep "plymouth" | wc -c) -ge 1]]; then
-    echo "[STATUS] Plymouth selected. Configuring now..." >/tmp/postinstall.log
+    if [ -f "${CN_DESTDIR}/usr/bin/plymouth" ]; then
+    echo "[STATUS] Plymouth selected. Configuring now..." >${CN_DESTDIR}/var/log/cnchi/plymouth.log
+    echo "[STATUS] Plymouth selected. Configuring now..." >/tmp/cnchi.log
     cp /usr/share/cnchi/plymouth.sh ${CN_DESTDIR}/usr/bin/
     cp /usr/share/cnchi/plymouth-reborn.desktop ${CN_DESTDIR}/etc/xdg/autostart/
-    echo "[SUCCESS] Plymouth has been installed" >/tmp/postinstall.log
+    chroot ${CN_DESTDIR} plymouth-set-default-theme -R arch-charge-big
+    echo "[SUCCESS] Plymouth has been installed and configured" >${CN_DESTDIR}/var/log/cnchi/plymouth.log
+    echo "[SUCCESS] Plymouth has been installed and configured" >/tmp/cnchi.log
     else
+    echo "[STATUS] Plymouth not selected" >${CN_DESTDIR}/var/log/cnchi/plymouth.log
     echo "[STATUS] Plymouth not selected" >/tmp/postinstall.log
     fi
 

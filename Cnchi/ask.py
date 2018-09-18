@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # ask.py
@@ -34,7 +34,6 @@ import logging
 import subprocess
 
 import gi
-
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
@@ -97,7 +96,6 @@ def load_zfs():
 
 class InstallationAsk(GtkBaseBox):
     """ Asks user which type of installation wants to perform """
-
     def __init__(self, params, prev_page="mirrors", next_page=None):
         super().__init__(self, params, "ask", prev_page, next_page)
 
@@ -538,9 +536,11 @@ class InstallationAsk(GtkBaseBox):
                         try:
                             fraction = pipe.recv()
                             progress_bar.set_fraction(fraction)
+                            must_wait = fraction < 1.0
                         except EOFError as _err:
                             pass
-                    must_wait = False
+                    else:
+                        must_wait = True
 
             while Gtk.events_pending():
                 Gtk.main_iteration()

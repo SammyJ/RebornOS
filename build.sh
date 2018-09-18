@@ -286,6 +286,7 @@ cp ${script_path}/airootfs/usr/share/applications/cnchi.png ${work_dir}/${arch}/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp ${script_path}/Cnchi/antergos-icon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp ${script_path}/Cnchi/plymouth-reborn.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/Cnchi/mate-panel.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/plymouth.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/flatpak.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/Cnchi/pkcon.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/

@@ -9,7 +9,7 @@
                 <pkgname>linux-firmware</pkgname>
                 <pkgname>base</pkgname>
                 <pkgname>base-devel</pkgname>
-                <pkgname>aurarchlinux-keyring</pkgname>
+                <pkgname>nexus-keyring</pkgname>
                 <pkgname>rebornos-keyring</pkgname>
             </packages>
         </edition>
