@@ -100,4 +100,4 @@ sudo ./test-cnchi.sh
 - Follow the instructions found here: https://help.github.com/articles/adding-a-file-to-a-repository-using-the-command-line/
 
 ### Create Torrent File for Reborn OS
-- Run `mktorrent -a udp://tracker.coppersurfer.tk:6969/announce -a http://tracker.opentrackr.org:1337/announce -a udp://tracker.publicbt.com:80 -n "${ISO_NAME_HERE}" -v -o "${ISO_NAME_HERE}.torrent" "${ISO_NAME_HERE}"
+- Run `mktorrent -v --announce="udp://tracker.coppersurfer.tk:6969/announce" --announce="http://tracker.opentrackr.org:1337/announce" --announce="udp://tracker.publicbt.com:80" --output="$HOME/Dropbox/Linux/RebornOS-Repo/sources/{DESIRED_ISO}.torrent" --web-seed="https://vorboss.dl.sourceforge.net/project/antergos-deepin/DESIRED_ISO}.iso" "$HOME/RebornOS/out/DESIRED_ISO}.iso"`
