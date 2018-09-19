@@ -99,5 +99,5 @@ sudo ./test-cnchi.sh
 ### Upload Reborn OS code to Gitlab (note for Reborn OS team)
 - Follow the instructions found here: https://help.github.com/articles/adding-a-file-to-a-repository-using-the-command-line/
 
-### Create Torrent File for Reborn OS
-- Run `mktorrent -v --announce="udp://tracker.coppersurfer.tk:6969/announce" --announce="http://tracker.opentrackr.org:1337/announce" --announce="udp://tracker.publicbt.com:80" --output="$HOME/Dropbox/Linux/RebornOS-Repo/sources/{DESIRED_ISO}.torrent" --web-seed="https://vorboss.dl.sourceforge.net/project/antergos-deepin/DESIRED_ISO}.iso" "$HOME/RebornOS/out/DESIRED_ISO}.iso"`
+### Create Torrent File for Reborn OS (note for Reborn OS team)
+- Run `mktorrent -v --announce="udp://tracker.coppersurfer.tk:6969/announce" --announce="http://tracker.opentrackr.org:1337/announce" --announce="udp://tracker.publicbt.com:80" --output="$HOME/Dropbox/Linux/RebornOS-Repo/sources/{DESIRED_ISO}.torrent" --web-seed="https://repo.itmettke.de/Reborn-OS/iso/{DESIRED_ISO}" "$HOME/RebornOS/out/{DESIRED_ISO}"`
