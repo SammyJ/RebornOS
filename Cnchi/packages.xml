@@ -190,7 +190,7 @@
             <pkgname>vim</pkgname>
         </feature>
         <feature name="aur">
-            <pkgname>yaourt</pkgname>
+            <pkgname>yay</pkgname>
             <pkgname>cmake</pkgname>
             <pkgname>git</pkgname>
             <pkgname>bzr</pkgname>

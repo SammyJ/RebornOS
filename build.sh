@@ -285,15 +285,21 @@ rm ${work_dir}/${arch}/airootfs/usr/share/pixmaps/cnchi.png
 cp ${script_path}/airootfs/usr/share/applications/cnchi.png ${work_dir}/${arch}/airootfs/usr/share/pixmaps/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp ${script_path}/Cnchi/antergos-icon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
-cp ${script_path}/Cnchi/plymouth-reborn.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/mate-panel.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/plymouth.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/flatpak.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/pkcon.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/pkcon2.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/flatpak.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/Cnchi/tint2-start.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/conky-start.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/openbox-theme.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/obmenu-gen.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/plymouth-reborn.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/mate-panel.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/plymouth.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/flatpak.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/pkcon.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/pkcon2.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/flatpak.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 #cp ${script_path}/Cnchi/pacman2.conf ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/update.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/update.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/deepin-fix.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
+cp ${script_path}/scripts/deepin-fix.service ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/images/pantheon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/desktops/
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/desktops/deepin.png
 rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/desktops/kde.png
@@ -314,8 +320,6 @@ cp ${script_path}/images/desktop-environment-windows.svg ${work_dir}/${arch}/air
 cp ${script_path}/images/desktop-environment-budgie.svg ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/icons/scalable/
 cp ${script_path}/images/desktop-environment-i3.svg ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/icons/scalable/
 cp ${script_path}/Cnchi/reborn-mirrorlist ${work_dir}/${arch}/airootfs/etc/pacman.d/
-cp ${script_path}/Cnchi/deepin-fix.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/Cnchi/deepin-fix.service ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 echo "DONE"
 echo
 echo "Replacing Antergos mentions with Reborn"

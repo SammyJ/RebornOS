@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Generating dynamic menus for Openbox
+Exec=obmenu-generator -p -i
+Name[en_US]=obmenu-gen

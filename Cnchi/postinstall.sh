@@ -456,12 +456,18 @@ postinstall() {
         chroot ${CN_DESTDIR} sudo pacman -Rdd openbox-cosmic-reborn --noconfirm
         chroot ${CN_DESTDIR} sudo pacman -Rdd common-cosmic-reborn --noconfirm
         chroot ${CN_DESTDIR} sudo pacman -Rdd graphic-cosmic-reborn --noconfirm
+        cp /usr/share/cnchi/openbox-theme.sh ${CN_DESTDIR}/usr/bin/
+        chroot ${CN_DESTDIR} sudo bash /usr/bin/openbox-theme.sh
         cp /usr/share/cnchi/flatpak.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/pkcon.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/pkcon2.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/flatpak.desktop ${CN_DESTDIR}/usr/share/applications/
         cp /usr/share/cnchi/update.desktop ${CN_DESTDIR}/etc/xdg/autostart/
+        cp /usr/share/cnchi/conky-start.desktop ${CN_DESTDIR}/etc/xdg/autostart/
         cp /usr/share/cnchi/updating.sh ${CN_DESTDIR}/usr/bin/
+        cp /usr/share/cnchi/tint2-start.desktop ${CN_DESTDIR}/etc/xdg/autostart/
+        cp /usr/share/cnchi/obmenu-gen.desktop ${CN_DESTDIR}/etc/xdg/autostart/
+        chroot ${CN_DESTDIR} obmenu-generator -p -i
     fi
 
     if [[ mate = "${CN_DESKTOP}" ]]; then
