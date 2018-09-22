@@ -287,7 +287,6 @@ rm ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-ic
 cp ${script_path}/Cnchi/antergos-icon.png ${work_dir}/${arch}/airootfs/usr/share/cnchi/data/images/antergos/antergos-icon.png
 cp ${script_path}/scripts/tint2-start.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/scripts/conky-start.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
-cp ${script_path}/scripts/openbox-theme.sh ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/scripts/obmenu-gen.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/scripts/plymouth-reborn.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/
 cp ${script_path}/scripts/mate-panel.desktop ${work_dir}/${arch}/airootfs/usr/share/cnchi/

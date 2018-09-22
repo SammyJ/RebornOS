@@ -456,8 +456,6 @@ postinstall() {
         chroot ${CN_DESTDIR} sudo pacman -Rdd openbox-cosmic-reborn --noconfirm
         chroot ${CN_DESTDIR} sudo pacman -Rdd common-cosmic-reborn --noconfirm
         chroot ${CN_DESTDIR} sudo pacman -Rdd graphic-cosmic-reborn --noconfirm
-        cp /usr/share/cnchi/openbox-theme.sh ${CN_DESTDIR}/usr/bin/
-        chroot ${CN_DESTDIR} sudo bash /usr/bin/openbox-theme.sh
         cp /usr/share/cnchi/flatpak.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/pkcon.sh ${CN_DESTDIR}/usr/bin/
         cp /usr/share/cnchi/pkcon2.sh ${CN_DESTDIR}/usr/bin/
