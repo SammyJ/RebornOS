@@ -224,6 +224,7 @@ iso-codes
 gptfdisk
 python-whither
 python-bugsnag
+reborn-welcome
 python-lxml
 python-mock
 python-requests

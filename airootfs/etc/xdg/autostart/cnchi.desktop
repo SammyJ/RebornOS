@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Reborn Installer
-Exec=/usr/bin/cnchi-start.sh
+Exec=/usr/bin/antergos-welcome
 Icon=/usr/share/applications/cnchi.png
 Terminal=True
-X-GNOME-Autostart-Delay=20
