@@ -305,8 +305,8 @@ postinstall() {
     fi
 
     # Set Reborn name in filesystem files
-    cp /etc/arch-release "${CN_DESTDIR}/etc"
-    cp /etc/os-release "${CN_DESTDIR}/etc"
+    cp /etc/arch-release "${CN_DESTDIR}/etc/"
+    cp /etc/os-release "${CN_DESTDIR}/etc/"
     sed -i 's|Arch|Reborn|g' "${CN_DESTDIR}/etc/issue"
 
     # Set common desktop settigns
@@ -573,6 +573,11 @@ fi
 
     # Ensure user permissions are set in /home
     chroot "${CN_DESTDIR}" chown -R "${CN_USER_NAME}:users" "/home/${CN_USER_NAME}"
+
+    # Remove reborn user if it still exists
+    if [ -d "${CN_DESTDIR}/home/reborn" ]; then
+    chroot ${CN_DESTDIR} sudo rm -rf /home/reborn
+    fi
 
     # Start vbox client services if we are installed in vbox
     if [[ ${CN_IS_VBOX} = "True" ]] || { [[ $(systemd-detect-virt) ]] && [[ 'oracle' = $(systemd-detect-virt -v) ]]; }; then
